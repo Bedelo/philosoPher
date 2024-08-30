@@ -1,0 +1,6 @@
+{
+	"files.associations": {
+		"philosopher.h": "c"
+	},
+	"makefile.configureOnOpen": false
+}
