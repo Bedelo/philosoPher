@@ -11,20 +11,20 @@ int	init(t_data *data, int ac, char **av)
 	{
 		data->nb_philos = ft_atoi(av[1]);
 		data->time_dead = ft_atoi(av[2]);
-		data->time_dead = ft_atoi(av[3]);
-		data->time_dead = ft_atoi(av[4]);
+		data->time_eat = ft_atoi(av[3]);
+		data->time_sleep = ft_atoi(av[4]);
 		if (av[5])
 			data->meals_max = ft_atoi(av[5]);
 		else
 			data->meals_max = -1;
 		data->philos = (t_philo *)malloc(data->nb_philos * sizeof(t_philo));
-		data->time_of_begin = 0;
-		data->monitoring = 1;
 		if (!pthread_mutex_init(&data->printable, NULL))
 			printf("Printable initialized \n");
 		if (!pthread_mutex_init(&data->is_dead, NULL))
 			printf("is_dead initialized \n");
-		printf("fin init\n");
+		data->time_of_begin = ft_time();
+		printf("%lld beginning time\n", data->time_of_begin);
+		data->monitoring = 1;
 		start(data);
 		return (SUCCESS);
 	}
@@ -33,26 +33,25 @@ int	init(t_data *data, int ac, char **av)
 void	start(t_data *data)
 {
 	int			i;
-	long long	m_time_begin;
 
-	m_time_begin = ft_time();
 	i = 0;
 	while (i < data->nb_philos)
 	{
 		data->philos[i].name = i;
 		data->philos[i].run = 1;
 		data->philos[i].nb_of_meal = 0;
-		data->time_of_begin = m_time_begin;
-		if (!pthread_mutex_init(&data->philos[i].fork_0, NULL))
-			printf("fork_0 of %d initialized \n", data->philos[i].name);
+		pthread_mutex_init(&data->philos[i].fork_0, NULL);
 		i++;
 	}
 	i = 0;
 	while (i < data->nb_philos)
 	{
 		data->philos[i].data = data;
+		data->philos[i].time_next_meal = data->time_dead + data->time_of_begin;
+		data->philos[i].time_last_meal = data->time_of_begin;
 		i++;
 	}
+	data->death = 0;
 	philos_creation(data);
 	philos_join(data);
 }

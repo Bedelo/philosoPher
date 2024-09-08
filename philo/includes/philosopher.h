@@ -21,6 +21,7 @@ typedef struct s_philo
 	pthread_mutex_t		*fork_1;
 	void				*data;
 	long long			time_next_meal;
+	long long			time_last_meal;
 	int					nb_of_meal;
 	int					run;
 }	t_philo;
@@ -30,12 +31,13 @@ typedef struct s_data
 	int					nb_philos;
 	int					time_dead;
 	int					time_eat;
-	int 				time_sleep;
+	int					time_sleep;
 	int					meals_max;	
 	t_philo				*philos;
 	pthread_mutex_t		printable;
 	pthread_mutex_t		is_dead;
 	int					monitoring;
+	int					death;
 	long long			time_of_begin;
 }	t_data;
 
@@ -47,7 +49,7 @@ int			init(t_data	*data, int ac, char **av);
 void		start(t_data *data);
 void		clear_if_dead(t_data *data);
 
-int			take_forks(t_philo *philo);
+int			take_forks(t_philo *philo, long long time);
 void		philos_creation(t_data *data);
 void		philos_join(t_data *data);
 void		philos_detach(t_data *data);
