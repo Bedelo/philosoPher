@@ -32,7 +32,7 @@ typedef struct s_data
 	int					time_dead;
 	int					time_eat;
 	int					time_sleep;
-	int					meals_max;	
+	int					meals_max;
 	t_philo				*philos;
 	pthread_mutex_t		printable;
 	pthread_mutex_t		is_dead;
@@ -46,7 +46,7 @@ typedef struct s_data
 
 
 int			init(t_data	*data, int ac, char **av);
-void		start(t_data *data);
+int			start(t_data *data);
 void		clear_if_dead(t_data *data);
 
 int			take_forks(t_philo *philo, long long time);
