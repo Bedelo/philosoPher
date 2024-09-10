@@ -10,7 +10,8 @@ PHILO_SRC = $(SRCS)philosopher.c \
 			$(SRCS)main.c \
 			$(SRCS)states.c \
 			$(SRCS)init.c \
-			$(SRCS)utils.c 
+			$(SRCS)utils.c \
+			$(SRCS)printer.c
 
 PHILO_OBJ = $(PHILO_SRC:.c=.o)
 

@@ -22,6 +22,8 @@ int	init(t_data *data, int ac, char **av)
 			return (FAILURE);
 		if (pthread_mutex_init(&data->is_dead, NULL))
 			return (FAILURE);
+		// if (pthread_mutex_init(&data->monitoring_t, NULL))
+		// 	return (FAILURE);
 		data->time_of_begin = ft_time();
 		data->monitoring = 1;
 		if(start(data))
@@ -29,19 +31,6 @@ int	init(t_data *data, int ac, char **av)
 		return (SUCCESS);
 	}
 }
-
-// void	fork_assignation(t_data* data)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < data->nb_philos - 1)
-// 	{
-// 		(data->philos[i].fork_1) = &(data->philos[i + 1].fork_0);
-// 		i++;
-// 	}
-// 	(data->philos[data->nb_philos - 1].fork_1) = &(data->philos[0].fork_0);
-// }
 
 int	start(t_data *data)
 {

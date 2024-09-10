@@ -1,28 +1,5 @@
 #include "../includes/philosopher.h"
 
-
-int	take_forks(t_philo *philo, long long m_time)
-{
-	int		i;
-	t_data	*data;
-	pthread_mutex_t f1;
-
-	i = philo->name;
-	data = (t_data *)philo->data;
-	if (philo->name == (data->nb_philos - 1))
-		f1 = data->philos[0].fork_0;
-	else
-		f1 = data->philos[philo->name + 1].fork_0;
-	pthread_mutex_lock(&f1);
-	pthread_mutex_lock(&philo->fork_0);
-	pthread_mutex_lock(&data->printable);
-	printf("%lld\t%d\t\thas taken a fork\n"
-		, m_time - ((((t_data *)philo->data)->time_of_begin))
-		, philo->name);
-	pthread_mutex_unlock(&data->printable);
-	return (1);
-}
-
 static int	check_monitoring(t_philo *philo, t_data *data)
 {
 	long long	m_time;
@@ -68,9 +45,9 @@ static void	*routine(void *philosophe)
 
 	philo = (t_philo *)philosophe;
 	data = (t_data *)philo->data;
+	delay(philo, data);
 	while (!data->death)
 	{
-		delay(philo, data);
 		eating(philo);
 		sleeping(philo);
 		thinking(philo);

@@ -33,3 +33,14 @@ long long	ft_time(void)
 	gettimeofday(&xtv, NULL);
 	return ((xtv.tv_sec * 1000) + (xtv.tv_usec / 1000));
 }
+
+// void ft_sleep(delay_ms)
+// {
+// 	long long m_time;
+
+// 	m_time = ft_time();
+// 	while()
+// 	{
+
+// 	}
+// }

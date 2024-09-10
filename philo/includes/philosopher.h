@@ -16,7 +16,7 @@
 typedef struct s_philo
 {
 	int					name;
-	pthread_t 			phi;
+	pthread_t			phi;
 	pthread_mutex_t		fork_0;
 	pthread_mutex_t		*fork_1;
 	void				*data;
@@ -34,6 +34,7 @@ typedef struct s_data
 	int					time_sleep;
 	int					meals_max;
 	t_philo				*philos;
+	pthread_t			monitoring_t;
 	pthread_mutex_t		printable;
 	pthread_mutex_t		is_dead;
 	int					monitoring;
@@ -57,7 +58,11 @@ void		philos_detach(t_data *data);
 int			ft_atoi(const char *str);
 long long	ft_time(void);
 
-void		eating(t_philo *philo);
+void		print_has_taken_fork(t_philo *philo, t_data *data);
+void		print_is_eating(t_philo *philo, t_data *data);
+
+
+int			eating(t_philo *philo);
 void		sleeping(t_philo *philo);
 void		thinking(t_philo *philo);
 
