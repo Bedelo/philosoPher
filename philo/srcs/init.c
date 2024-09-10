@@ -18,21 +18,32 @@ int	init(t_data *data, int ac, char **av)
 		else
 			data->meals_max = -1;
 		data->philos = (t_philo *)malloc(data->nb_philos * sizeof(t_philo));
+<<<<<<< HEAD
 		if (pthread_mutex_init(&data->printable, NULL))
 			return (FAILURE);
 		if (pthread_mutex_init(&data->is_dead, NULL))
 			return (FAILURE);
 		// if (pthread_mutex_init(&data->monitoring_t, NULL))
 		// 	return (FAILURE);
+=======
+		if (!pthread_mutex_init(&data->printable, NULL))
+			printf("Printable initialized \n");
+		if (!pthread_mutex_init(&data->is_dead, NULL))
+			printf("is_dead initialized \n");
+>>>>>>> parent of d2d026b (chevauchement des repas a fixer)
 		data->time_of_begin = ft_time();
+		printf("%lld beginning time\n", data->time_of_begin);
 		data->monitoring = 1;
-		if(start(data))
-			return (FAILURE);
+		start(data);
 		return (SUCCESS);
 	}
 }
 
+<<<<<<< HEAD
 int	start(t_data *data)
+=======
+void	start(t_data *data)
+>>>>>>> parent of d2d026b (chevauchement des repas a fixer)
 {
 	int			i;
 
@@ -42,23 +53,20 @@ int	start(t_data *data)
 		data->philos[i].name = i;
 		data->philos[i].run = 1;
 		data->philos[i].nb_of_meal = 0;
-		if(pthread_mutex_init(&data->philos[i].fork_0, NULL))
-			return (FAILURE);
+		pthread_mutex_init(&data->philos[i].fork_0, NULL);
 		i++;
 	}
 	i = 0;
 	while (i < data->nb_philos)
 	{
+		data->philos[i].data = data;
 		data->philos[i].time_next_meal = data->time_dead + data->time_of_begin;
 		data->philos[i].time_last_meal = data->time_of_begin;
-		data->philos[i].data = data;
 		i++;
 	}
 	data->death = 0;
-	// fork_assignation(data);
 	philos_creation(data);
 	philos_join(data);
-	return (SUCCESS);
 }
 
 
