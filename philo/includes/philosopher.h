@@ -13,17 +13,16 @@
 # define INT_MIN -2147483648
 # define ERROR_ARGS "SIZE OF ARGS IS INCORRECT\n"
 
+typedef struct s_data t_data;
+
 typedef struct s_philo
 {
 	int					name;
-	pthread_t			phi;
-	pthread_mutex_t		fork_0;
-	pthread_mutex_t		*fork_1;
-	void				*data;
-	long long			time_next_meal;
+	t_data				*data;
 	long long			time_last_meal;
 	int					nb_of_meal;
 	int					run;
+	pthread_t			phi;
 }	t_philo;
 
 typedef struct s_data
@@ -32,38 +31,46 @@ typedef struct s_data
 	int					time_dead;
 	int					time_eat;
 	int					time_sleep;
-	int					meals_max;	
+	int					meals_max;
 	t_philo				*philos;
 	pthread_t			monitoring_t;
 	pthread_mutex_t		printable;
 	pthread_mutex_t		is_dead;
+	pthread_mutex_t		*forks;
 	int					monitoring;
 	int					death;
 	long long			time_of_begin;
+	int					philo_ready;
+
 }	t_data;
 
 //synchroniser data pour les philo lors de lutilisation
 //ressource partager pour les thread avec printable
 
 
-int			init(t_data	*data, int ac, char **av);
-void		start(t_data *data);
-void		clear_if_dead(t_data *data);
+pthread_mutex_t	*forks_tab(pthread_mutex_t *tab, int nb_philo);
+int				init(t_data	*data, int ac, char **av);
+void			start(t_data *data);
+void			clear_if_dead(t_data *data);
 
-int			take_forks(t_philo *philo, long long time);
-void		philos_creation(t_data *data);
-void		philos_join(t_data *data);
-void		philos_detach(t_data *data);
-
-int			ft_atoi(const char *str);
-long long	ft_time(void);
-
-void		print_has_taken_fork(t_philo *philo, t_data *data);
-void		print_is_eating(t_philo *philo, t_data *data);
+int				take_forks(t_philo *philo, long long time);
+void			philos_creation(t_data *data);
+void			philos_join(t_data *data);
+void			philos_detach(t_data *data);
 
 
-int			eating(t_philo *philo);
-void		sleeping(t_philo *philo);
-void		thinking(t_philo *philo);
+int				ft_atoi(const char *str);
+long long		ft_time(void);
+void			ft_sleep(long long delay_ms);
+
+void			print_has_taken_fork(t_philo *philo, t_data *data);
+void			print_is_eating(t_philo *philo, t_data *data, long long m_time);
+
+void			monitoring_creation(t_data *data);
+void			monitoring_join(t_data *data);
+
+int				eating(t_philo *philo);
+void			sleeping(t_philo *philo);
+void			thinking(t_philo *philo);
 
 #endif

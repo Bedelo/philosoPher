@@ -11,7 +11,8 @@ PHILO_SRC = $(SRCS)philosopher.c \
 			$(SRCS)states.c \
 			$(SRCS)init.c \
 			$(SRCS)utils.c \
-			$(SRCS)printer.c
+			$(SRCS)printer.c \
+			$(SRCS)monitoring.c
 
 PHILO_OBJ = $(PHILO_SRC:.c=.o)
 
@@ -28,7 +29,7 @@ clean:
 	rm -f $(PHILO_OBJ)
 
 fclean: clean
-	rm -f $(PHILO_NAME) $(NAME) 
+	rm -f $(PHILO_NAME) $(NAME)
 
 re: fclean all
 
