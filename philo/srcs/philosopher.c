@@ -1,30 +1,5 @@
 #include "../includes/philosopher.h"
 
-<<<<<<< HEAD
-=======
-
-int	take_forks(t_philo *philo, long long m_time)
-{
-	int		i;
-	t_data	*data;
-
-	data = (t_data *)philo->data;
-	i = philo->name;
-	if (i == ((t_data *)philo->data)->nb_philos - 1)
-		philo->fork_1 = &((t_data *)philo->data)->philos[0].fork_0;
-	else
-		philo->fork_1 = &((t_data *)philo->data)->philos[i + 1].fork_0;
-	if (!pthread_mutex_lock(&philo->fork_0) || !pthread_mutex_lock(philo->fork_1))
-	{
-		pthread_mutex_lock(&data->printable);
-		printf("%lld\t%d\t\thas taken a fork\n", m_time - ((((t_data *)philo->data)->time_of_begin)), philo->name);
-		pthread_mutex_unlock(&data->printable);
-		return (1);
-	}
-	return (0);
-}
-
->>>>>>> parent of d2d026b (chevauchement des repas a fixer)
 static int	check_monitoring(t_philo *philo, t_data *data)
 {
 	long long	m_time;
@@ -71,17 +46,12 @@ static void	*routine(void *philosophe)
 	philo = (t_philo *)philosophe;
 	data = (t_data *)philo->data;
 	delay(philo, data);
-<<<<<<< HEAD
 	while (!data->death)
-=======
-	while (1)
->>>>>>> parent of d2d026b (chevauchement des repas a fixer)
 	{
 		eating(philo);
 		sleeping(philo);
 		thinking(philo);
 		check_monitoring(philo, data);
-		
 	}
 	return (philosophe);
 }

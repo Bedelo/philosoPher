@@ -18,19 +18,10 @@ int	init(t_data *data, int ac, char **av)
 		else
 			data->meals_max = -1;
 		data->philos = (t_philo *)malloc(data->nb_philos * sizeof(t_philo));
-<<<<<<< HEAD
-		if (pthread_mutex_init(&data->printable, NULL))
-			return (FAILURE);
-		if (pthread_mutex_init(&data->is_dead, NULL))
-			return (FAILURE);
-		// if (pthread_mutex_init(&data->monitoring_t, NULL))
-		// 	return (FAILURE);
-=======
 		if (!pthread_mutex_init(&data->printable, NULL))
 			printf("Printable initialized \n");
 		if (!pthread_mutex_init(&data->is_dead, NULL))
 			printf("is_dead initialized \n");
->>>>>>> parent of d2d026b (chevauchement des repas a fixer)
 		data->time_of_begin = ft_time();
 		printf("%lld beginning time\n", data->time_of_begin);
 		data->monitoring = 1;
@@ -39,11 +30,7 @@ int	init(t_data *data, int ac, char **av)
 	}
 }
 
-<<<<<<< HEAD
-int	start(t_data *data)
-=======
 void	start(t_data *data)
->>>>>>> parent of d2d026b (chevauchement des repas a fixer)
 {
 	int			i;
 
