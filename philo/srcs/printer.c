@@ -9,8 +9,7 @@ void	print_has_taken_fork(t_philo *philo, t_data *data)
 	m_time = ft_time();
 	if (!pthread_mutex_lock(&data->printable))
 	{
-		printf("%lld\t%d\t\thas taken a fork\n"
-			, m_time - data->time_of_begin, i);
+		printf("%lld\t%d\t\thas taken a fork\n", m_time - data->time_of_begin, i);
 		pthread_mutex_unlock(&data->printable);
 	}
 }
@@ -24,6 +23,7 @@ void	print_is_eating(t_philo *philo, t_data *data, long long m_time)
 	if (!pthread_mutex_lock(&data->printable))
 	{
 		printf("%lld\t%d\t\tis eating\n", m_time - data->time_of_begin, i);
+		printf("%d\tstatus take %d\n", philo->name, philo->fork_taken);
 		pthread_mutex_unlock(&data->printable);
 	}
 }

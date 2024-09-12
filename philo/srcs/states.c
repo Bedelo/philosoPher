@@ -1,29 +1,42 @@
 #include "../includes/philosopher.h"
 
-int	lock_forks(t_philo *philo, t_data *data)
+
+
+void	lock_fork_r(t_philo *philo, t_data *data)
 {
 	int				i;
-	int				res;
+
+	i = philo->name;
+	if (!philo->fork_taken || philo->fork_taken % 2 == 0)
+	{
+		if (!pthread_mutex_lock(&data->forks[i]))
+		{
+			print_has_taken_fork(philo, data);
+			philo->fork_taken += 1;
+		}
+	}
+}
+
+void	lock_fork_l(t_philo *philo, t_data *data)
+{
+	int				i;
 	pthread_mutex_t	fork_1;
 
 	i = philo->name;
-	res = 0;
-	if (i == (data->nb_philos - 1))
-		fork_1 = data->forks[0];
-	else
-		fork_1 = data->forks[i + 1];
-	if (!pthread_mutex_lock(&fork_1))
+	// if (i == (data->nb_philos - 1))
+	// 	fork_1 = data->forks[0];
+	// else
+		fork_1 = data->forks[(i + 1) % data->nb_philos];
+	if (!philo->fork_taken || philo->fork_taken < 10)
 	{
-		print_has_taken_fork(philo, data);
-		res += 1;
+		if (!pthread_mutex_lock(&fork_1))
+		{
+			print_has_taken_fork(philo, data);
+			philo->fork_taken += 10;
+		}
 	}
-	if (!pthread_mutex_lock(&data->forks[i]))
-	{
-		print_has_taken_fork(philo, data);
-		res += 1;
-	}
-	return (res);
 }
+
 
 void	unlock_forks(t_philo *philo, t_data *data)
 {
@@ -31,12 +44,11 @@ void	unlock_forks(t_philo *philo, t_data *data)
 	pthread_mutex_t	fork_1;
 
 	i = philo->name;
-	if (i == (data->nb_philos - 1))
-		fork_1 = data->forks[0];
-	else
-		fork_1 = data->forks[i + 1];
-	pthread_mutex_unlock(&data->forks[i]);
-	pthread_mutex_unlock(&fork_1);
+	fork_1 = data->forks[(i + 1) % data->nb_philos];
+	if (!pthread_mutex_unlock(&fork_1))
+		philo->fork_taken -= 10;
+	if (!pthread_mutex_unlock(&data->forks[i]))
+		philo->fork_taken -= 1;
 }
 
 int	eating(t_philo *philo)
@@ -48,14 +60,17 @@ int	eating(t_philo *philo)
 	flag = philo->nb_of_meal;
 	data = (t_data *)philo->data;
 	m_time = ft_time();
-	if (lock_forks(philo, data) == 2)
+	lock_fork_l(philo, data);
+	lock_fork_r(philo, data);
+	if (philo->fork_taken == 11)
 	{
+		print_is_eating(philo, data, m_time);
 		ft_sleep(data->time_eat);
 		philo->time_last_meal = m_time;
 		philo->nb_of_meal += 1;
 		unlock_forks(philo, data);
+		printf("%d\tstatus take %d\n", philo->name, philo->fork_taken);
 	}
-	print_is_eating(philo, data, m_time);
 	return (philo->nb_of_meal - flag);
 }
 

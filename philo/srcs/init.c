@@ -1,6 +1,5 @@
 #include "../includes/philosopher.h"
 
-
 void	start(t_data *data)
 {
 	int			i;
@@ -17,17 +16,17 @@ void	start(t_data *data)
 	i = 0;
 	while (i < data->nb_philos)
 	{
-		data->philos[i].data = data;
 		data->philos[i].time_last_meal = data->time_of_begin;
+		data->philos[i].data = data;
 		i++;
 	}
-	data->death = 0;
 	philos_creation(data);
+	data->philo_ready = 1;
+	printf("READY :%d\n", data->philo_ready);
 	monitoring_creation(data);
 	monitoring_join(data);
 	philos_join(data);
 }
-
 
 int	init(t_data *data, int ac, char **av)
 {
@@ -49,13 +48,12 @@ int	init(t_data *data, int ac, char **av)
 		data->philos = (t_philo *)malloc(data->nb_philos * sizeof(t_philo));
 		if (!data->philos)
 			return (0);
-		if (!pthread_mutex_init(&data->printable, NULL))
-			printf("Printable initialized \n");
-		if (!pthread_mutex_init(&data->is_dead, NULL))
-			printf("is_dead initialized \n");
+		pthread_mutex_init(&data->printable, NULL);
+		pthread_mutex_init(&data->is_dead, NULL);
 		data->forks = forks_tab(data->forks, data->nb_philos);
 		data->time_of_begin = ft_time();
 		data->monitoring = 1;
+		data->death = 0;
 		data->philo_ready = 0;
 		start(data);
 		return (SUCCESS);

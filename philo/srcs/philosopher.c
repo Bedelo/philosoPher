@@ -1,5 +1,12 @@
 #include "../includes/philosopher.h"
 
+
+void	wait_to_ready(t_data *data)
+{
+	while (data->philo_ready == 0)
+		usleep(10);
+}
+
 static int	check_death(t_philo *philo, t_data *data)
 {
 	long long	m_time;
@@ -22,10 +29,10 @@ static int full_meals(t_philo *philo, t_data *data)
 
 	stop = 0;
 	m_time = ft_time();
-	if (data->meals_max == philo->nb_of_meal)
-	{
+	if (data->meals_max < philo->nb_of_meal)
 		stop = 1;
-	}
+	printf("%d MEALS: %d   ==? %d\n", philo->name, data->meals_max, philo->nb_of_meal);
+
 	return (stop);
 }
 
@@ -34,13 +41,13 @@ static void	delay(t_philo *philo, t_data *data)
 {
 	long long	m_time;
 
-	if (philo->name % 2 == 1 && philo->nb_of_meal == 0)
+	if (philo->name % 2 == 0 && philo->nb_of_meal == 0)
 	{
 		m_time = ft_time();
 		if (!pthread_mutex_lock(&data->printable))
 			printf("%lld\t%d\t\tis sleeping\n", m_time - data->time_of_begin, philo->name);
 		pthread_mutex_unlock(&(data->printable));
-		ft_sleep(50);
+		ft_sleep(data->time_eat);
 	}
 }
 
@@ -52,18 +59,17 @@ static void	*routine(void *philosophe)
 
 	stop = 0;
 	philo = (t_philo *)philosophe;
-	data = (t_data *)philo->data;
+	data = philo->data;
+	printf("routine %d\n", philo->name);
+	wait_to_ready(data);
+	delay(philo, data);
 	while (!stop)
 	{
-		delay(philo, data);
-		if (eating(philo))
-		{
+		eating(philo);
 			sleeping(philo);
-			thinking(philo);
-		}
+		thinking(philo);
 		stop += check_death(philo, data);
 		stop +=full_meals(philo, data);
-		usleep(50);
 	}
 	return (philosophe);
 }
@@ -75,10 +81,12 @@ void	philos_creation(t_data *data)
 	i = 0;
 	while (i < data->nb_philos)
 	{
-		pthread_create(&(data->philos[i].phi), NULL, &routine, (void *)&((data->philos[i].name)));
+		pthread_create(&(data->philos[i].phi), NULL, routine, (void *)&((data->philos[i].name)));
+		usleep(10);
 		i++;
 	}
-	data->philo_ready = 1;
+	// data->philo_ready = 1;
+	// printf("READY :%d\n", data->philo_ready);
 }
 
 void	philos_join(t_data *data)
@@ -119,3 +127,5 @@ pthread_mutex_t	*forks_tab(pthread_mutex_t *tab, int nb_philo)
 	}
 	return (tab);
 }
+
+

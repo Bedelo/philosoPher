@@ -23,6 +23,7 @@ typedef struct s_philo
 	int					nb_of_meal;
 	int					run;
 	pthread_t			phi;
+	int					fork_taken;
 }	t_philo;
 
 typedef struct s_data

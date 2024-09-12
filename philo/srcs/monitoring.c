@@ -11,7 +11,7 @@ static void	*m_routine(void *arg)
 	while (!off)
 	{
 		i = 0;
-		while(i < data->nb_philos)
+		while (i < data->nb_philos)
 		{
 			if(data->philos[i].run == 0)
 			{
@@ -20,13 +20,14 @@ static void	*m_routine(void *arg)
 			}
 			i++;
 		}
+		usleep(100);
 	}
 	return (NULL);
 }
 
 void	monitoring_creation(t_data *data)
 {
-	pthread_create(&(data->monitoring_t), NULL, &m_routine, (void *)(data));
+	pthread_create(&(data->monitoring_t), NULL, m_routine, (void *)(data));
 }
 
 
