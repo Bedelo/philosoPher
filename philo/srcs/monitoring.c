@@ -3,21 +3,18 @@
 
 static void	*m_routine(void *arg)
 {
-	t_data *data = (t_data *)arg;
+	t_data	*data ;
 	int		off;
 
+	data = (t_data *)arg;
 	off = 0;
 	while (!off)
 	{
-		printf("OOOOOOOOOOOOOOOOOOOOOOO\n");
-		if(data->death == 1 || data->meals_max > 0)
+		if (data->death > 0 || data->meals_max > 0)
 		{
 			clear_if_dead(data);
 			off = 1;
-			printf("UUUUUUUUUUUUUUUUUUUUUU\n");
 		}
-			
-		
 		usleep(10);
 	}
 	return (arg);

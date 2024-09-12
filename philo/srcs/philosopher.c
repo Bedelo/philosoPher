@@ -30,9 +30,8 @@ static int	full_meals(t_philo *philo, t_data *data)
 	int			stop;
 
 	stop = 0;
-	if (data->meals_max < philo->nb_of_meal)
+	if (philo->nb_of_meal >= data->meals_max)
 		stop = 1;
-	// printf("%d MEALS: %d   ==? %d\n", philo->name, data->meals_max, philo->nb_of_meal);
 	return (stop);
 }
 
