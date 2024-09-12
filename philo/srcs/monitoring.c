@@ -5,24 +5,22 @@ static void	*m_routine(void *arg)
 {
 	t_data *data = (t_data *)arg;
 	int		off;
-	int		i;
 
 	off = 0;
 	while (!off)
 	{
-		i = 0;
-		while (i < data->nb_philos)
+		printf("OOOOOOOOOOOOOOOOOOOOOOO\n");
+		if(data->death == 1 || data->meals_max > 0)
 		{
-			if(data->philos[i].run == 0)
-			{
-				clear_if_dead(data);
-				off = 1;
-			}
-			i++;
+			clear_if_dead(data);
+			off = 1;
+			printf("UUUUUUUUUUUUUUUUUUUUUU\n");
 		}
+			
+		
 		usleep(10);
 	}
-	return (NULL);
+	return (arg);
 }
 
 void	monitoring_creation(t_data *data)

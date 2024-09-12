@@ -23,7 +23,7 @@ int	init(t_data *data, int ac, char **av)
 			return (0);
 		pthread_mutex_init(&data->printable, NULL);
 		pthread_mutex_init(&data->is_dead, NULL);
-		pthread_mutex_init(&data->m_over, NULL);
+		pthread_mutex_init(&data->over, NULL);
 		data->forks = forks_tab(data->forks, data->nb_philos, data->fork_taken);
 		// data->monitoring = 1;
 		data->death = 0;
@@ -55,10 +55,10 @@ void	start(t_data *data)
 		i++;
 	}
 	philos_creation(data);
+	monitoring_creation(data);
 	data->philo_ready = 1;
 	data->time_of_begin = ft_time();
 	printf("READY :%d\n", data->philo_ready);
-	monitoring_creation(data);
 	philos_join(data);
 	monitoring_join(data);
 }
@@ -69,7 +69,7 @@ void	clear_if_dead(t_data *data)
 
 	i = 0;
 	while(i < data->nb_philos)
-		pthread_detach(data->forks[i]);
+		pthread_detach(data->philos[i].phi);
 	pthread_mutex_destroy(&data->printable);
 	pthread_mutex_destroy(&data->is_dead);
 	free(data->philos);

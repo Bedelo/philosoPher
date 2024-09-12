@@ -44,17 +44,15 @@ void	unlock_forks(t_philo *philo, t_data *data)
 	pthread_mutex_unlock(&data->forks[i]);
 }
 
-int	eating(t_philo *philo)
+void	eating(t_philo *philo)
 {
 	long long	m_time;
 	t_data		*data;
-	int			flag;
 	int 		i;
 
-	flag = philo->nb_of_meal;
 	data = philo->data;
 	m_time = ft_time();
-	i = (philo->name + 1) % 2;
+	i = (philo->name + 1) % data->nb_philos;
 	if (!pthread_mutex_lock(&data->forks[i]))
 		print_has_taken_fork(philo, data);
 	if (!pthread_mutex_lock(&data->forks[philo->name]))
@@ -67,7 +65,6 @@ int	eating(t_philo *philo)
 	}
 	pthread_mutex_unlock(&data->forks[philo->name]);
 	pthread_mutex_unlock(&data->forks[i]);
-	return (philo->nb_of_meal - flag);
 }
 
 
@@ -80,6 +77,8 @@ void	sleeping_thinking(t_philo *philo)
 	m_time = ft_time();
 	print_sleeping(philo, data, m_time);
 	ft_sleep(data->time_sleep);
+	m_time = ft_time();
 	print_thinking(philo, data, m_time);
+	ft_sleep(50);
 }
 

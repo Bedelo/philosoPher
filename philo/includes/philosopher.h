@@ -38,7 +38,7 @@ typedef struct s_data
 	pthread_mutex_t		printable;
 	pthread_mutex_t		is_dead;
 	pthread_mutex_t		*forks;
-	pthread_mutex_t		m_over;
+	pthread_mutex_t		over;
 	int					*fork_taken;
 	int					meals_over;
 	int					death;
@@ -74,7 +74,7 @@ void			print_is_eating(t_philo *philo, t_data *data, long long m_time);
 void			monitoring_creation(t_data *data);
 void			monitoring_join(t_data *data);
 
-int				eating(t_philo *philo);
+void				eating(t_philo *philo);
 void			sleeping_thinking(t_philo *philo);
 void			thinking(t_philo *philo);
 
