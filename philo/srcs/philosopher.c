@@ -4,7 +4,7 @@
 void	wait_to_ready(t_data *data)
 {
 	while (data->philo_ready == 0)
-		usleep(10);
+		usleep(1);
 }
 
 static int	check_death(t_philo *philo, t_data *data)
@@ -22,17 +22,14 @@ static int	check_death(t_philo *philo, t_data *data)
 	return (philo->run);
 }
 
-static int full_meals(t_philo *philo, t_data *data)
+static int	full_meals(t_philo *philo, t_data *data)
 {
-	long long	m_time;
 	int			stop;
 
 	stop = 0;
-	m_time = ft_time();
 	if (data->meals_max < philo->nb_of_meal)
 		stop = 1;
-	printf("%d MEALS: %d   ==? %d\n", philo->name, data->meals_max, philo->nb_of_meal);
-
+	// printf("%d MEALS: %d   ==? %d\n", philo->name, data->meals_max, philo->nb_of_meal);
 	return (stop);
 }
 
@@ -41,13 +38,13 @@ static void	delay(t_philo *philo, t_data *data)
 {
 	long long	m_time;
 
-	if (philo->name % 2 == 0 && philo->nb_of_meal == 0)
+	if (philo->name % 2 == 0)
 	{
 		m_time = ft_time();
-		if (!pthread_mutex_lock(&data->printable))
+		pthread_mutex_lock(&data->printable);
 			printf("%lld\t%d\t\tis sleeping\n", m_time - data->time_of_begin, philo->name);
 		pthread_mutex_unlock(&(data->printable));
-		ft_sleep(data->time_eat);
+		usleep(data->time_eat * 1000);
 	}
 }
 
@@ -66,11 +63,15 @@ static void	*routine(void *philosophe)
 	while (!stop)
 	{
 		eating(philo);
-			sleeping(philo);
-		thinking(philo);
+		sleeping_thinking(philo);
 		stop += check_death(philo, data);
 		stop +=full_meals(philo, data);
 	}
+	if (!pthread_mutex_lock(&data->m_over))
+		data->meals_max += 1;
+	pthread_mutex_unlock(&data->m_over);
+	while (data->meals_max < data->nb_philos)
+		;
 	return (philosophe);
 }
 
@@ -114,15 +115,23 @@ void	philos_detach(t_data *data)
 	}
 }
 
-pthread_mutex_t	*forks_tab(pthread_mutex_t *tab, int nb_philo)
+pthread_mutex_t	*forks_tab(pthread_mutex_t *tab, int nb_philos, int *ft)
 {
 	int				i;
 
 	i = 0;
-	tab = malloc(sizeof(pthread_mutex_t) * nb_philo);
-	while (i < nb_philo)
+	tab = malloc(sizeof(pthread_mutex_t) * nb_philos);
+	if (!tab)
+		return (NULL);
+	ft = malloc(nb_philos * sizeof(t_philo));
+	if (!ft)
+		return (NULL);
+	if (!tab)
+		return (NULL);
+	while (i < nb_philos)
 	{
 		pthread_mutex_init(&tab[i], NULL);
+		ft[i] = 0;
 		i++;
 	}
 	return (tab);

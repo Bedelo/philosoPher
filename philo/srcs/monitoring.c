@@ -20,7 +20,7 @@ static void	*m_routine(void *arg)
 			}
 			i++;
 		}
-		usleep(100);
+		usleep(10);
 	}
 	return (NULL);
 }

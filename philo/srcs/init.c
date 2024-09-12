@@ -1,32 +1,5 @@
 #include "../includes/philosopher.h"
 
-void	start(t_data *data)
-{
-	int			i;
-
-	i = 0;
-	while (i < data->nb_philos)
-	{
-		data->philos[i].name = i;
-		data->philos[i].run = 1;
-		data->philos[i].nb_of_meal = 0;
-		pthread_mutex_init(&data->forks[i], NULL);
-		i++;
-	}
-	i = 0;
-	while (i < data->nb_philos)
-	{
-		data->philos[i].time_last_meal = data->time_of_begin;
-		data->philos[i].data = data;
-		i++;
-	}
-	philos_creation(data);
-	data->philo_ready = 1;
-	printf("READY :%d\n", data->philo_ready);
-	monitoring_creation(data);
-	monitoring_join(data);
-	philos_join(data);
-}
 
 int	init(t_data *data, int ac, char **av)
 {
@@ -50,21 +23,54 @@ int	init(t_data *data, int ac, char **av)
 			return (0);
 		pthread_mutex_init(&data->printable, NULL);
 		pthread_mutex_init(&data->is_dead, NULL);
-		data->forks = forks_tab(data->forks, data->nb_philos);
-		data->time_of_begin = ft_time();
-		data->monitoring = 1;
+		pthread_mutex_init(&data->m_over, NULL);
+		data->forks = forks_tab(data->forks, data->nb_philos, data->fork_taken);
+		// data->monitoring = 1;
 		data->death = 0;
 		data->philo_ready = 0;
+		data->meals_over = 0;
 		start(data);
 		return (SUCCESS);
 	}
 }
 
+void	start(t_data *data)
+{
+	int			i;
+
+	i = 0;
+	while (i < data->nb_philos)
+	{
+		data->philos[i].name = i;
+		data->philos[i].run = 1;
+		data->philos[i].nb_of_meal = 0;
+		// pthread_mutex_init(&data->forks[i], NULL);
+		i++;
+	}
+	i = 0;
+	while (i < data->nb_philos)
+	{
+		// data->philos[i].time_last_meal = data->time_of_begin;
+		data->philos[i].data = data;
+		i++;
+	}
+	philos_creation(data);
+	data->philo_ready = 1;
+	data->time_of_begin = ft_time();
+	printf("READY :%d\n", data->philo_ready);
+	monitoring_creation(data);
+	philos_join(data);
+	monitoring_join(data);
+}
+
 void	clear_if_dead(t_data *data)
 {
-	philos_detach(data);
+	int	i;
+
+	i = 0;
+	while(i < data->nb_philos)
+		pthread_detach(data->forks[i]);
 	pthread_mutex_destroy(&data->printable);
 	pthread_mutex_destroy(&data->is_dead);
 	free(data->philos);
-	free(data->forks);
 }
