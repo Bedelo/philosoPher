@@ -79,6 +79,5 @@ void	sleeping_thinking(t_philo *philo)
 	ft_sleep(data->time_sleep);
 	m_time = ft_time();
 	print_thinking(philo, data, m_time);
-	ft_sleep(50);
 }
 

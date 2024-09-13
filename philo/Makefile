@@ -1,7 +1,7 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g3 -O3
 
-PHILO_NAME = philosopher
+PHILO_NAME = philo
 
 SRCS = ./srcs/
 INCLUDE = ./includes/
@@ -12,7 +12,9 @@ PHILO_SRC = $(SRCS)philosopher.c \
 			$(SRCS)init.c \
 			$(SRCS)utils.c \
 			$(SRCS)printer.c \
-			$(SRCS)monitoring.c
+			$(SRCS)monitoring.c \
+			$(SRCS)parsing.c
+
 
 PHILO_OBJ = $(PHILO_SRC:.c=.o)
 

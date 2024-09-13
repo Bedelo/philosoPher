@@ -32,6 +32,9 @@ static int	full_meals(t_philo *philo, t_data *data)
 	stop = 0;
 	if (philo->nb_of_meal >= data->meals_max)
 		stop = 1;
+	if (!pthread_mutex_lock(&data->over))
+		data->meals_over += 1;
+	pthread_mutex_unlock(&data->over);
 	return (stop);
 }
 
@@ -50,7 +53,12 @@ static void	delay(t_philo *philo, t_data *data)
 	}
 }
 
-
+static void	wait_last_odd(t_philo *philo, t_data *data)
+{
+	if (philo->name != data->nb_philos - 1
+		&& data->nb_philos % 2 == 1)
+		usleep(1);
+}
 static void	*routine(void *philosophe)
 {
 	t_philo	*philo;
@@ -62,9 +70,11 @@ static void	*routine(void *philosophe)
 	data = philo->data;
 	printf("routine %d\n", philo->name);
 	wait_to_ready(data);
+	philo->time_last_meal = data->time_of_begin;
 	while (!stop)
 	{
 		delay(philo, data);
+		wait_last_odd(philo, data);
 		eating(philo);
 		sleeping_thinking(philo);
 		stop += !check_death(philo, data);
@@ -112,8 +122,13 @@ void	philos_detach(t_data *data)
 	i = 0;
 	while (i < data->nb_philos)
 	{
-		pthread_mutex_destroy(&data->forks[i]);
 		pthread_detach(data->philos[i].phi);
+		i++;
+	}
+	i = 0;
+	while (i < data->nb_philos)
+	{
+		pthread_mutex_destroy(&data->forks[i]);
 		i++;
 	}
 }

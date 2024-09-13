@@ -1,11 +1,11 @@
 #include "../includes/philosopher.h"
 
 
-int	ft_atoi(const char *str)
+long	ft_atol(const char *str)
 {
-	int	a;
-	int	sign;
-	int	res;
+	long		a;
+	long		sign;
+	long		res;
 
 	a = 0;
 	sign = 1;
@@ -45,4 +45,12 @@ void ft_sleep(long long delay_ms)
 	{
 		usleep(10);
 	}
+}
+
+int	ft_isdigit(int c)
+{
+	if (c > 47 && c < 58)
+		return (c);
+	else
+		return (0);
 }
