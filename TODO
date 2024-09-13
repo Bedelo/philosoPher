@@ -4,6 +4,9 @@ gestion de la fin
 	*full meals
 	*death
 
+condition 1 philo
+
+gestion helgrind
 
 test
 3 500 200 5

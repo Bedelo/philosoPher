@@ -72,7 +72,6 @@ static void	*routine(void *philosophe)
 	stop = 0;
 	philo = (t_philo *)philosophe;
 	data = philo->data;
-	// printf("routine %d\n", philo->name);
 	wait_to_ready(data);
 	philo->time_last_meal = data->time_of_begin;
 	while (!stop)
@@ -95,7 +94,6 @@ void	philos_creation(t_data *data)
 	while (i < data->nb_philos)
 	{
 		pthread_create(&(data->philos[i].phi), NULL, routine, (void *)&((data->philos[i].name)));
-		usleep(10);
 		i++;
 	}
 }

@@ -58,7 +58,6 @@ void	start(t_data *data)
 	philos_creation(data);
 	data->philo_ready = 1;
 	data->time_of_begin = ft_time();
-	// printf("READY :%d\n", data->philo_ready);
 	philos_join(data);
 	if (!monitoring_join(data))
 	{

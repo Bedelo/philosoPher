@@ -2,47 +2,47 @@
 
 
 
-void	lock_fork_r(t_philo *philo, t_data *data)
-{
-	int				i;
+// void	lock_fork_r(t_philo *philo, t_data *data)
+// {
+// 	int				i;
 
-	i = philo->name;
-	{
-		if (!pthread_mutex_lock(&data->forks[i]))
-		{
-			print_has_taken_fork(philo, data);
-		}
-	}
-}
+// 	i = philo->name;
+// 	{
+// 		if (!pthread_mutex_lock(&data->forks[i]))
+// 		{
+// 			print_has_taken_fork(philo, data);
+// 		}
+// 	}
+// }
 
-void	lock_fork_l(t_philo *philo, t_data *data)
-{
-	int				i;
-	int				x;
-	pthread_mutex_t	fork_1;
+// void	lock_fork_l(t_philo *philo, t_data *data)
+// {
+// 	int				i;
+// 	int				x;
+// 	pthread_mutex_t	fork_1;
 
-	i = philo->name;
-	x = (i + 1) % data->nb_philos;
-	fork_1 = data->forks[x];
-	{
-		if (!pthread_mutex_lock(&fork_1))
-		{
-			print_has_taken_fork(philo, data);
-		}
-	}
-}
+// 	i = philo->name;
+// 	x = (i + 1) % data->nb_philos;
+// 	fork_1 = data->forks[x];
+// 	{
+// 		if (!pthread_mutex_lock(&fork_1))
+// 		{
+// 			print_has_taken_fork(philo, data);
+// 		}
+// 	}
+// }
 
 
-void	unlock_forks(t_philo *philo, t_data *data)
-{
-	int				i;
-	pthread_mutex_t	fork_1;
+// void	unlock_forks(t_philo *philo, t_data *data)
+// {
+// 	int				i;
+// 	pthread_mutex_t	fork_1;
 
-	i = philo->name;
-	fork_1 = data->forks[(i + 1) % data->nb_philos];
-	pthread_mutex_unlock(&fork_1);
-	pthread_mutex_unlock(&data->forks[i]);
-}
+// 	i = philo->name;
+// 	fork_1 = data->forks[(i + 1) % data->nb_philos];
+// 	pthread_mutex_unlock(&fork_1);
+// 	pthread_mutex_unlock(&data->forks[i]);
+// }
 
 void	eating(t_philo *philo)
 {

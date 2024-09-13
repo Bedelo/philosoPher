@@ -13,12 +13,12 @@ static void	*m_routine(void *arg)
 		if (data->death > 0
 		|| data->meals_over == data->nb_philos)
 		{
-			printf("FIN\n");
 			clear_if_dead(data);
 			off = 1;
 		}
 		usleep(50);
 	}
+	printf("FIN\n");
 	return (NULL);
 }
 
