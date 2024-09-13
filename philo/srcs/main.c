@@ -6,5 +6,6 @@ int	main(int ac, char **av)
 
 	data = malloc(sizeof(t_data));
 	init(data, ac , av);
+	free(data);
 	return (0);
 }

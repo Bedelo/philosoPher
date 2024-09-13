@@ -26,7 +26,6 @@ typedef struct s_philo
 	int					nb_of_meal;
 	int					run;
 	pthread_t			phi;
-	int					fork_taken;
 }	t_philo;
 
 typedef struct s_data
@@ -39,10 +38,8 @@ typedef struct s_data
 	t_philo				*philos;
 	pthread_t			monitoring_t;
 	pthread_mutex_t		printable;
-	pthread_mutex_t		is_dead;
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		over;
-	int					*fork_taken;
 	int					meals_over;
 	int					death;
 	long long			time_of_begin;
@@ -54,7 +51,7 @@ typedef struct s_data
 //ressource partager pour les thread avec printable
 
 
-pthread_mutex_t	*forks_tab(pthread_mutex_t *tab, int nb_philo, int *fork_taken);
+pthread_mutex_t	*forks_tab(pthread_mutex_t *tab, int nb_philo);
 int				init(t_data	*data, int ac, char **av);
 void			start(t_data *data);
 void			clear_if_dead(t_data *data);
@@ -77,7 +74,7 @@ void			print_has_taken_fork(t_philo *philo, t_data *data);
 void			print_is_eating(t_philo *philo, t_data *data, long long m_time);
 
 void			monitoring_creation(t_data *data);
-void			monitoring_join(t_data *data);
+int				monitoring_join(t_data *data);
 
 void			eating(t_philo *philo);
 void			sleeping_thinking(t_philo *philo);

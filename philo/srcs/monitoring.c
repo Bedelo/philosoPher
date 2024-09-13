@@ -10,15 +10,16 @@ static void	*m_routine(void *arg)
 	off = 0;
 	while (!off)
 	{
-		// printf("LOL");
-		if (data->death > 0 || data->meals_over > 0)
+		if (data->death > 0
+		|| data->meals_over == data->nb_philos)
 		{
+			printf("FIN\n");
 			clear_if_dead(data);
 			off = 1;
 		}
-		usleep(5);
+		usleep(50);
 	}
-	return (arg);
+	return (NULL);
 }
 
 void	monitoring_creation(t_data *data)
@@ -27,9 +28,9 @@ void	monitoring_creation(t_data *data)
 }
 
 
-void	monitoring_join(t_data *data)
+int	monitoring_join(t_data *data)
 {
-	pthread_join(data->monitoring_t, NULL);
+	return pthread_join(data->monitoring_t, NULL);
 }
 
 void	clear_if_dead(t_data *data)
@@ -37,9 +38,10 @@ void	clear_if_dead(t_data *data)
 	int	i;
 
 	i = 0;
-	while(i < data->nb_philos)
-		pthread_detach(data->philos[i].phi);
+	while (i < data->nb_philos)
+	{
+		data->philos[i].run = 0;
+		i++;
+	}
 	pthread_mutex_destroy(&data->printable);
-	pthread_mutex_destroy(&data->is_dead);
-	free(data->philos);
 }

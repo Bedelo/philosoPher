@@ -26,10 +26,8 @@ int	init(t_data *data, int ac, char **av)
 		if (!data->philos)
 			return (0);
 		pthread_mutex_init(&data->printable, NULL);
-		pthread_mutex_init(&data->is_dead, NULL);
 		pthread_mutex_init(&data->over, NULL);
-		data->forks = forks_tab(data->forks, data->nb_philos, data->fork_taken);
-		// data->monitoring = 1;
+		data->forks = forks_tab(data->forks, data->nb_philos);
 		data->death = 0;
 		data->philo_ready = 0;
 		data->meals_over = 0;
@@ -37,8 +35,6 @@ int	init(t_data *data, int ac, char **av)
 		return (SUCCESS);
 	}
 }
-
-
 
 void	start(t_data *data)
 {
@@ -58,13 +54,17 @@ void	start(t_data *data)
 		data->philos[i].data = data;
 		i++;
 	}
-	philos_creation(data);
 	monitoring_creation(data);
+	philos_creation(data);
 	data->philo_ready = 1;
 	data->time_of_begin = ft_time();
-	printf("READY :%d\n", data->philo_ready);
+	// printf("READY :%d\n", data->philo_ready);
 	philos_join(data);
-	monitoring_join(data);
+	if (!monitoring_join(data))
+	{
+		free(data->forks);
+		free(data->philos);
+	}
 }
 
 

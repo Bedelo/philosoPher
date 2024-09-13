@@ -4,7 +4,7 @@
 void	wait_to_ready(t_data *data)
 {
 	while (data->philo_ready == 0)
-		usleep(100);
+		usleep(100 * data->nb_philos);
 }
 
 static int	check_death(t_philo *philo, t_data *data)
@@ -12,7 +12,7 @@ static int	check_death(t_philo *philo, t_data *data)
 	long long	m_time;
 
 	m_time = ft_time();
-	if (philo->time_last_meal + data->time_dead < m_time)
+	if (philo->time_last_meal + data->time_dead + 50 <= m_time)
 	{
 		philo->run = 0;
 		if (!pthread_mutex_lock(&data->over))
@@ -27,14 +27,18 @@ static int	check_death(t_philo *philo, t_data *data)
 
 static int	full_meals(t_philo *philo, t_data *data)
 {
-	int			stop;
+	int	stop;
 
 	stop = 0;
+	if (data->meals_max == -1 || philo->nb_of_meal < data->meals_max)
+		stop = 0;
 	if (philo->nb_of_meal >= data->meals_max)
+	{
 		stop = 1;
-	if (!pthread_mutex_lock(&data->over))
-		data->meals_over += 1;
-	pthread_mutex_unlock(&data->over);
+		if (!pthread_mutex_lock(&data->over))
+			data->meals_over += 1;
+		pthread_mutex_unlock(&data->over);
+	}
 	return (stop);
 }
 
@@ -47,9 +51,9 @@ static void	delay(t_philo *philo, t_data *data)
 	{
 		m_time = ft_time();
 		pthread_mutex_lock(&data->printable);
-			printf("%lld\t%d\t\tis sleeping\n", m_time - data->time_of_begin, philo->name);
+			printf("%lld\t%d\t\tis thinking\n", m_time - data->time_of_begin, philo->name);
 		pthread_mutex_unlock(&(data->printable));
-		usleep(data->time_eat * 1000);
+		usleep(data->time_eat );
 	}
 }
 
@@ -68,7 +72,7 @@ static void	*routine(void *philosophe)
 	stop = 0;
 	philo = (t_philo *)philosophe;
 	data = philo->data;
-	printf("routine %d\n", philo->name);
+	// printf("routine %d\n", philo->name);
 	wait_to_ready(data);
 	philo->time_last_meal = data->time_of_begin;
 	while (!stop)
@@ -80,12 +84,7 @@ static void	*routine(void *philosophe)
 		stop += !check_death(philo, data);
 		stop += full_meals(philo, data);
 	}
-	// if (!pthread_mutex_lock(&data->over))
-	// 	data->meals_max += 1;
-	// pthread_mutex_unlock(&data->over);
-	// while (data->meals_max < data->nb_philos)
-	// 	;
-	return (philosophe);
+	return (NULL);
 }
 
 void	philos_creation(t_data *data)
@@ -99,8 +98,6 @@ void	philos_creation(t_data *data)
 		usleep(10);
 		i++;
 	}
-	// data->philo_ready = 1;
-	// printf("READY :%d\n", data->philo_ready);
 }
 
 void	philos_join(t_data *data)
@@ -133,7 +130,7 @@ void	philos_detach(t_data *data)
 	}
 }
 
-pthread_mutex_t	*forks_tab(pthread_mutex_t *tab, int nb_philos, int *ft)
+pthread_mutex_t	*forks_tab(pthread_mutex_t *tab, int nb_philos)
 {
 	int				i;
 
@@ -141,15 +138,9 @@ pthread_mutex_t	*forks_tab(pthread_mutex_t *tab, int nb_philos, int *ft)
 	tab = malloc(sizeof(pthread_mutex_t) * nb_philos);
 	if (!tab)
 		return (NULL);
-	ft = malloc(nb_philos * sizeof(t_philo));
-	if (!ft)
-		return (NULL);
-	if (!tab)
-		return (NULL);
 	while (i < nb_philos)
 	{
 		pthread_mutex_init(&tab[i], NULL);
-		ft[i] = 0;
 		i++;
 	}
 	return (tab);
