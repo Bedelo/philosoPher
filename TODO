@@ -1,12 +1,9 @@
-gerer nombre impaire
 
-gestion de la fin
-	*full meals
-	*death
+begin in 1 philo
 
-condition 1 philo
-
+nb meals no defined
 gestion helgrind
+
 
 test
 3 500 200 5

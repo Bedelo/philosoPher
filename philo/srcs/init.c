@@ -7,7 +7,7 @@ int	use_case_1(t_data *data)
 	res = 0;
 	if (data->nb_philos == 1)
 	{
-		printf("0\t0\t\tis died\n");
+		printf("0\t1\t\tis died\n");
 		ft_sleep(data->time_dead);
 		res++;
 	}

@@ -19,7 +19,7 @@ static int	check_death(t_philo *philo, t_data *data)
 			data->death += 1;
 		pthread_mutex_unlock(&(data->over));
 		if (!pthread_mutex_lock(&data->printable))
-			printf("%lld\t%d\t\tdied\n", m_time - data->time_of_begin, philo->name);
+			printf("%lld\t%d\t\tdied\n", m_time - data->time_of_begin, philo->name + 1);
 		pthread_mutex_unlock(&(data->printable));
 	}
 	return (philo->run);
@@ -32,7 +32,7 @@ static int	full_meals(t_philo *philo, t_data *data)
 	stop = 0;
 	if (data->meals_max == -1 || philo->nb_of_meal < data->meals_max)
 		stop = 0;
-	if (philo->nb_of_meal >= data->meals_max)
+	else if (philo->nb_of_meal >= data->meals_max)
 	{
 		stop = 1;
 		if (!pthread_mutex_lock(&data->over))
@@ -51,7 +51,7 @@ static void	delay(t_philo *philo, t_data *data)
 	{
 		m_time = ft_time();
 		pthread_mutex_lock(&data->printable);
-			printf("%lld\t%d\t\tis thinking\n", m_time - data->time_of_begin, philo->name);
+			printf("%lld\t%d\t\tis thinking\n", m_time - data->time_of_begin, philo->name + 1);
 		pthread_mutex_unlock(&(data->printable));
 		usleep(data->time_eat );
 	}

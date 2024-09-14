@@ -11,12 +11,12 @@ static void	*m_routine(void *arg)
 	while (!off)
 	{
 		if (data->death > 0
-		|| data->meals_over == data->nb_philos)
+			|| data->meals_over == data->nb_philos)
 		{
 			clear_if_dead(data);
 			off = 1;
 		}
-		usleep(50);
+		usleep(1);
 	}
 	printf("FIN\n");
 	return (NULL);
