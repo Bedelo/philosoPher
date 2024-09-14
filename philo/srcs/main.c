@@ -6,7 +6,7 @@ int	main(int ac, char **av)
 
 	data = malloc(sizeof(t_data));
 	if (!data)
-		return (NULL);
+		return (0);
 	else
 	{
 		init(data, ac , av);
