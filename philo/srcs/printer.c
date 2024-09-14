@@ -26,6 +26,7 @@ void	print_is_eating(t_philo *philo, t_data *data, long long m_time)
 		pthread_mutex_unlock(&data->printable);
 	}
 }
+
 void	print_sleeping(t_philo *philo, t_data *data, long long m_time)
 {
 	int			i;

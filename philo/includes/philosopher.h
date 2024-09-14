@@ -62,7 +62,7 @@ void			philos_join(t_data *data);
 void			philos_detach(t_data *data);
 
 
-long				ft_atol(const char *str);
+long			ft_atol(const char *str);
 long long		ft_time(void);
 void			ft_sleep(long long delay_ms);
 int				ft_isdigit(int c);
