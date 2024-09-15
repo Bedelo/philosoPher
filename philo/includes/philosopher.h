@@ -40,6 +40,7 @@ typedef struct s_data
 	pthread_mutex_t		printable;
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		over;
+	pthread_mutex_t		r_w;
 	int					meals_over;
 	int					death;
 	long long			time_of_begin;

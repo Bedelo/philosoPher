@@ -38,8 +38,12 @@ static void	init_thread(t_data *data)
 {
 	monitoring_creation(data);
 	philos_creation(data);
-	data->philo_ready = 1;
-	data->time_of_begin = ft_time();
+	if (!pthread_mutex_lock(&data->r_w))
+	{
+		data->philo_ready = 1;
+		data->time_of_begin = ft_time();
+		pthread_mutex_unlock(&data->r_w);
+	}
 	philos_join(data);
 	if (!monitoring_join(data))
 	{
@@ -65,6 +69,7 @@ static void	start0(t_data *data, char **av)
 		return ;
 	pthread_mutex_init(&data->printable, NULL);
 	pthread_mutex_init(&data->over, NULL);
+	pthread_mutex_init(&data->r_w, NULL);
 	data->forks = forks_tab(data->forks, data->nb_philos);
 	data->death = 0;
 	data->philo_ready = 0;

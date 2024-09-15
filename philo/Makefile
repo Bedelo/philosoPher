@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3 -O3
+CFLAGS = -Wall -Wextra -Werror -fsanitize=thread -g3 -O3
 
 PHILO_NAME = philo
 

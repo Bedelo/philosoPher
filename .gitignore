@@ -1,0 +1,9 @@
+#tester
+/LazyPhilosophersTester
+
+
+#objets
+./philo/srcs/*.o
+
+#todo
+./TODO
