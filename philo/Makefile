@@ -1,4 +1,5 @@
 CC = cc
+# CFLAGS = -Wall -Wextra -Werror -g3 -O3
 CFLAGS = -Wall -Wextra -Werror -fsanitize=thread -g3 -O3
 
 PHILO_NAME = philo
@@ -13,6 +14,7 @@ PHILO_SRC = $(SRCS)philosopher.c \
 			$(SRCS)utils.c \
 			$(SRCS)printer.c \
 			$(SRCS)monitoring.c \
+			$(SRCS)gettersetter.c \
 			$(SRCS)parsing.c
 
 

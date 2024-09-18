@@ -10,13 +10,13 @@ static void	*m_routine(void *arg)
 	off = 0;
 	while (!off)
 	{
-		if (data->death > 0
-			|| data->meals_over == data->nb_philos)
+		if (get_i(&data->r_w, &data->death) > 0
+			|| get_i(&data->r_w, &data->meals_over) == data->nb_philos)
 		{
 			clear_if_dead(data);
 			off = 1;
 		}
-		usleep(100);
+		usleep(10);
 	}
 	printf("FIN\n");
 	return (NULL);
@@ -38,7 +38,7 @@ void	clear_if_dead(t_data *data)
 	int	i;
 
 	i = 0;
-	if (!pthread_mutex_lock(&data->printable))
+	if (!pthread_mutex_lock(&data->r_w))
 	{
 		while (i < data->nb_philos)
 		{
@@ -49,7 +49,6 @@ void	clear_if_dead(t_data *data)
 			}
 			i++;
 		}
-		pthread_mutex_unlock(&data->printable);
+		pthread_mutex_unlock(&data->r_w);
 	}
-	pthread_mutex_destroy(&data->printable);
 }

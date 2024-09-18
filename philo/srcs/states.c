@@ -10,18 +10,36 @@ void	eating(t_philo *philo)
 	data = philo->data;
 	m_time = ft_time();
 	i = (philo->name + 1) % data->nb_philos;
-	if (!pthread_mutex_lock(&data->forks[i]))
-		print_has_taken_fork(philo, data);
-	if (!pthread_mutex_lock(&data->forks[philo->name]))
-		print_has_taken_fork(philo, data);
+	if (philo->name % 2 == 0)
+	{
+		if (!pthread_mutex_lock(&data->forks[i]))
+			print_has_taken_fork(philo, data);
+		if (!pthread_mutex_lock(&data->forks[philo->name]))
+			print_has_taken_fork(philo, data);
+	}
+	else
+	{
+		if (!pthread_mutex_lock(&data->forks[philo->name]))
+			print_has_taken_fork(philo, data);
+		if (!pthread_mutex_lock(&data->forks[i]))
+			print_has_taken_fork(philo, data);
+	}
 	{
 		print_is_eating(philo, data, m_time);
 		ft_sleep(data->time_eat);
 		philo->time_last_meal = m_time;
 		philo->nb_of_meal += 1;
 	}
-	pthread_mutex_unlock(&data->forks[philo->name]);
-	pthread_mutex_unlock(&data->forks[i]);
+	if (philo->name % 2 == 0)
+	{
+		pthread_mutex_unlock(&data->forks[philo->name]);
+		pthread_mutex_unlock(&data->forks[i]);
+	}
+	else
+	{
+		pthread_mutex_unlock(&data->forks[i]);
+		pthread_mutex_unlock(&data->forks[philo->name]);
+	}
 }
 
 

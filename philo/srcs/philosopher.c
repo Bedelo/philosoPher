@@ -3,11 +3,13 @@
 
 void	wait_to_ready(t_data *data)
 {
-	while (data->philo_ready == 0)
+	while (1)
 	{
-		// if (data->philo_ready == 1)
-		// 	break ;
-		usleep(100 * data->nb_philos);
+		if (ft_time() > get_ll(&data->r_w, &data->time_of_begin))
+		// 	set_i(&data->r_w, &data->philo_ready, data->philo_ready + 1);
+		// if (get_i(&data->r_w, &data->philo_ready) != 0)
+			break ;
+		usleep(10);
 	}
 }
 
@@ -20,16 +22,12 @@ static int	check_death(t_philo *philo, t_data *data)
 	m_time = ft_time();
 	if (philo->time_last_meal + data->time_dead  < m_time)
 	{
-		philo->run = 0;
+		set_i(&data->r_w, &philo->run, 0);
 		stop -= 1;
-		if (!pthread_mutex_lock(&data->over))
-		{
-			data->death += 1;
-			pthread_mutex_unlock(&(data->over));
-		}
-		if (!pthread_mutex_lock(&data->printable))
+		if (!pthread_mutex_lock(&data->printable) && !get_i(&data->r_w, &data->death))
 		{
 			printf("%lld\t%d\t\tdied\n", m_time - data->time_of_begin, philo->name + 1);
+			set_i(&data->r_w, &data->death, data->death + 1);
 			pthread_mutex_unlock(&(data->printable));
 		}
 	}
@@ -41,16 +39,12 @@ static int	full_meals(t_philo *philo, t_data *data)
 	int	stop;
 
 	stop = 0;
-	if (data->meals_max == -1 || philo->nb_of_meal < data->meals_max)
+	if (data->meals_max == -1 || philo->nb_of_meal < get_i(&data->r_w, &data->meals_max))
 		stop = 0;
-	else if (philo->nb_of_meal >= data->meals_max)
+	else if (philo->nb_of_meal >= get_i(&data->r_w, &data->meals_max))
 	{
 		stop = 1;
-		if (!pthread_mutex_lock(&data->over))
-		{
-			data->meals_over += 1;
-			pthread_mutex_unlock(&data->over);
-		}
+		set_i(&data->r_w, &data->meals_over, data->meals_over + 1);
 	}
 	return (stop);
 }
@@ -85,9 +79,9 @@ static void	*routine(void *philosophe)
 	stop = 0;
 	philo = (t_philo *)philosophe;
 	data = philo->data;
-	// wait_to_ready(data);
+	wait_to_ready(data);
 	philo->time_last_meal = data->time_of_begin;
-	while (!stop)
+	while ( !get_i(&data->r_w, &data->death) )
 	{
 		delay(philo, data);
 		wait_last_odd(philo, data);
@@ -98,6 +92,7 @@ static void	*routine(void *philosophe)
 		}
 		stop += !check_death(philo, data);
 		stop += full_meals(philo, data);
+		stop += !philo->run;
 	}
 	return (NULL);
 }

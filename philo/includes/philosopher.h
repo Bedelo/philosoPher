@@ -81,4 +81,10 @@ void			eating(t_philo *philo);
 void			sleeping_thinking(t_philo *philo);
 void			thinking(t_philo *philo);
 
+
+long long		get_ll(pthread_mutex_t *mut, long long *value);
+int				get_i(pthread_mutex_t *mut, int *value);
+void			set_ll(pthread_mutex_t *mut, long long *dst, long long src);
+void			set_i(pthread_mutex_t *mut, int *dst, int src);
+
 #endif
