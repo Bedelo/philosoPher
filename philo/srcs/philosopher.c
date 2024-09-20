@@ -16,22 +16,22 @@ void	wait_to_ready(t_data *data)
 static int	check_death(t_philo *philo, t_data *data)
 {
 	long long	m_time;
-	int			stop;
+	// int			stop;
 
-	stop = 1;
+	// stop = 1;
 	m_time = ft_time();
 	if (philo->time_last_meal + data->time_dead  < m_time)
 	{
 		set_i(&data->r_w, &philo->run, 0);
-		stop -= 1;
-		if (!pthread_mutex_lock(&data->printable) && !get_i(&data->r_w, &data->death))
-		{
-			printf("%lld\t%d\t\tdied\n", m_time - data->time_of_begin, philo->name + 1);
-			set_i(&data->r_w, &data->death, data->death + 1);
-			pthread_mutex_unlock(&(data->printable));
-		}
+		// stop -= 1;
+		// if (!pthread_mutex_lock(&data->printable) && !get_i(&data->r_w, &data->death))
+		// {
+		// 	printf("%lld\t%d\t\tdied\n", m_time - data->time_of_begin, philo->name + 1);
+		// 	// set_i(&data->r_w, &data->death, data->death + 1);
+		// 	pthread_mutex_unlock(&(data->printable));
+		// }
 	}
-	return (stop);
+	return (get_i(&data->r_w, &data->death));
 }
 
 static int	full_meals(t_philo *philo, t_data *data)
@@ -44,7 +44,7 @@ static int	full_meals(t_philo *philo, t_data *data)
 	else if (philo->nb_of_meal >= get_i(&data->r_w, &data->meals_max))
 	{
 		stop = 1;
-		set_i(&data->r_w, &data->meals_over, data->meals_over + 1);
+		//set_i(&data->r_w, &data->meals_over, data->meals_over + 1);
 	}
 	return (stop);
 }
@@ -85,14 +85,14 @@ static void	*routine(void *philosophe)
 	{
 		delay(philo, data);
 		wait_last_odd(philo, data);
-		if (!data->death)
+		// if (!data->death)
 		{
 			eating(philo);
 			sleeping_thinking(philo);
 		}
-		stop += !check_death(philo, data);
-		stop += full_meals(philo, data);
-		stop += !philo->run;
+		if (full_meals(philo, data))
+			break ;
+		check_death(philo, data);
 	}
 	return (NULL);
 }

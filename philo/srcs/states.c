@@ -28,7 +28,7 @@ void	eating(t_philo *philo)
 		print_is_eating(philo, data, m_time);
 		ft_sleep(data->time_eat);
 		philo->time_last_meal = m_time;
-		philo->nb_of_meal += 1;
+		set_i(&data->r_w, &philo->nb_of_meal, philo->nb_of_meal + 1);
 	}
 	if (philo->name % 2 == 0)
 	{

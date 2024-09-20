@@ -5,20 +5,36 @@ static void	*m_routine(void *arg)
 {
 	t_data	*data ;
 	int		off;
+	int		full_meals;
 
 	data = (t_data *)arg;
-	off = 0;
-	while (!off)
+	while (!get_i(&data->r_w, &data->death))
 	{
-		if (get_i(&data->r_w, &data->death) > 0
-			|| get_i(&data->r_w, &data->meals_over) == data->nb_philos)
+		off = 0;
+		// if (get_i(&data->r_w, &data->death) > 0
+		// 	|| get_i(&data->r_w, &data->meals_over) == data->nb_philos)
+		// {
+		// 	clear_if_dead(data);
+		// 	off = 1;
+		// }
+		while (off < data->nb_philos)
 		{
-			clear_if_dead(data);
-			off = 1;
+			if (!get_i(&data->r_w, &data->philos[off].run))
+				set_i(&data->r_w, &data->death, 0);
+			off++;
 		}
-		usleep(10);
+		off = 0;
+		full_meals = 0;
+		while (off < data->nb_philos && get_i(&data->r_w, &data->philos[off].run))
+		{
+			full_meals += get_i(&data->r_w, &data->philos[off].nb_of_meal);
+			off++;
+		}
+		if (full_meals == data->meals_max * data->nb_philos)
+			break ;
+		// usleep(10);
 	}
-	printf("FIN\n");
+	// printf("FIN\n");
 	return (NULL);
 }
 
