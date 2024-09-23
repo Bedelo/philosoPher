@@ -12,3 +12,10 @@ use case 4 410 200 200 no-died
 #DONE
 modif Makefile thread=sanitizer
 
+monitor 
+tant que filo ont pas fini leur repas 
+il tourne
+
+philo 
+tant que la variable death na pas changer 
+il tourne

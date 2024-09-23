@@ -1,0 +1,32 @@
+{
+    "name": "42-env-philo",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "kube.42header",
+                "MariusvanWijk-JoppeKoers.codam-norminette-3",
+                "mhutchie.git-graph",
+                "DoKca.42-ft-count-line"
+            ],
+            "settings": {
+                // EDITOR
+                "editor.tabSize": 4,
+                "editor.insertSpaces": false,
+                "editor.renderWhitespace": "all",
+                // EDITOR => Files
+                "files.autoSave": "afterDelay",
+                "files.trimTrailingWhitespace": true,
+                "files.insertFinalNewline": true,
+                // EDITOR => Terminal
+                "terminal.integrated.defaultProfile.linux": "fish",
+                // EXT: 42Header
+                "42header.email": "bsunda@student.42.fr",
+                "42header.username": "bsunda"
+            }
+        }
+    },
+    "containerUser": "student"
+}
