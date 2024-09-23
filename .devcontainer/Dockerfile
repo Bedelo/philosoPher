@@ -24,6 +24,7 @@ RUN apt-get update && \
         python3-venv \
         git \
         zsh \
+        openssh-client \
         fish && \
     apt-get clean
 
