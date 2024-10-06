@@ -18,14 +18,16 @@ static void	*m_routine(void *arg)
 			if (!get_i(&data->r_w, &data->philos[off].run))
 			{
 				philos_off++;
+				break;
 			}
 			off++;
 		}
-		if (philos_off == 1)
+		if (philos_off > 0)
 		{
 			set_i(&data->over, &data->death, 1);
 			if (!pthread_mutex_lock(&data->printable))
 			{
+				
 				printf("%lld\t%d\t\tdied\n",
 					ft_time() - data->time_of_begin, data->philos[off].name + 1);
 				pthread_mutex_unlock(&(data->printable));

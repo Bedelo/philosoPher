@@ -19,11 +19,13 @@ static void init_philos(t_data *data)
 	int		i;
 
 	i = 0;
+
 	while (i < data->nb_philos)
 	{
 		data->philos[i].name = i;
 		data->philos[i].run = 1;
 		data->philos[i].nb_of_meal = 0;
+		data->philos[i].time_stash = data->time_dead - data->time_eat - data->time_sleep;
 		i++;
 	}
 	i = 0;
@@ -36,7 +38,6 @@ static void init_philos(t_data *data)
 
 static void	init_thread(t_data *data)
 {
-	data->time_of_begin = ft_time() + data->nb_philos + 500;
 	monitoring_creation(data);
 	philos_creation(data);
 	// if (!pthread_mutex_lock(&data->r_w))
@@ -75,6 +76,7 @@ static void	start0(t_data *data, char **av)
 	data->death = 0;
 	data->philo_ready = 0;
 	data->meals_over = 0;
+	data->time_of_begin = ft_time() + data->nb_philos * 10;
 	init_philos(data);
 	init_thread(data);
 }

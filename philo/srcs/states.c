@@ -1,14 +1,13 @@
 #include "../includes/philosopher.h"
 
 
-void	eating(t_philo *philo)
-{
-	long long	m_time;
-	t_data		*data;
-	int 		i;
 
-	data = philo->data;
-	m_time = ft_time();
+
+
+void	lock_fork(t_philo *philo, t_data *data)
+{
+	int i;
+
 	i = (philo->name + 1) % data->nb_philos;
 	if (philo->name % 2 == 0)
 	{
@@ -24,12 +23,13 @@ void	eating(t_philo *philo)
 		if (!pthread_mutex_lock(&data->forks[i]))
 			print_has_taken_fork(philo, data);
 	}
-	{
-		print_is_eating(philo, data, m_time);
-		ft_sleep(data->time_eat);
-		philo->time_last_meal = m_time;
-		set_i(&data->r_w, &philo->nb_of_meal, philo->nb_of_meal + 1);
-	}
+}
+
+void	unlock_fork(t_philo *philo, t_data *data)
+{
+	int i;
+
+	i = (philo->name + 1) % data->nb_philos;
 	if (philo->name % 2 == 0)
 	{
 		pthread_mutex_unlock(&data->forks[philo->name]);
@@ -43,6 +43,33 @@ void	eating(t_philo *philo)
 }
 
 
+
+void	eating(t_philo *philo)
+{
+	long long	m_time;
+	t_data		*data;
+	int 		i;
+
+	data = philo->data;
+	m_time = ft_time();
+	i = (philo->name + 1) % data->nb_philos;
+	lock_fork(philo, data);
+	print_is_eating(philo, data, m_time);
+	if (data->time_dead > data-> time_eat)
+	{
+		ft_sleep(data->time_eat);
+		philo->time_last_meal = m_time;
+		set_i(&data->r_w, &philo->nb_of_meal, philo->nb_of_meal + 1);
+	}
+	else
+	{
+		ft_sleep(data->time_dead);
+		set_i(&data->r_w, &philo->run, 0);
+		set_i(&data->r_w, &philo->nb_of_meal, philo->nb_of_meal + 1);
+	}
+	unlock_fork(philo, data);
+}
+
 void	sleeping_thinking(t_philo *philo)
 {
 	long long	m_time;
@@ -50,9 +77,19 @@ void	sleeping_thinking(t_philo *philo)
 
 	data = philo->data;
 	m_time = ft_time();
-	print_sleeping(philo, data, m_time);
-	ft_sleep(data->time_sleep);
-	m_time = ft_time();
-	print_thinking(philo, data, m_time);
+	if (!get_i(&data->over, &data->death))
+	{
+		ft_sleep(data->time_sleep);
+		print_sleeping(philo, data, m_time);
+	}
+	if (!get_i(&data->over, &data->death))
+	{
+		m_time = ft_time();
+		print_thinking(philo, data, m_time);
+		if (philo->time_stash + data->time_sleep < data->time_eat)
+		{
+			ft_sleep(philo->time_stash);
+			set_i(&data->r_w, &philo->run, 0);
+		}
+	}
 }
-
