@@ -7,7 +7,7 @@ void	wait_to_ready(t_data *data)
 	{
 		if (ft_time() > get_ll(&data->r_w, &data->time_of_begin))
 			break ;
-		usleep(10);
+		usleep(20);
 	}
 }
 

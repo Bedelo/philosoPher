@@ -76,7 +76,7 @@ static void	start0(t_data *data, char **av)
 	data->death = 0;
 	data->philo_ready = 0;
 	data->meals_over = 0;
-	data->time_of_begin = ft_time() + data->nb_philos * 10;
+	data->time_of_begin = ft_time() + data->nb_philos * 100;
 	init_philos(data);
 	init_thread(data);
 }
