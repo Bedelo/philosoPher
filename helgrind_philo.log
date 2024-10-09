@@ -1,0 +1,357 @@
+==91994== Helgrind, a thread error detector
+==91994== Copyright (C) 2007-2017, and GNU GPL'd, by OpenWorks LLP et al.
+==91994== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==91994== Command: ./philo/philo 200 300 60 600 8
+==91994== 
+1	200		has taken a fork
+4	200		has taken a fork
+4	200		is eating
+5	127		is thinking
+6	123		is thinking
+6	199		is thinking
+7	89		is thinking
+7	40		has taken a fork
+8	40		has taken a fork
+8	40		is eating
+8	190		has taken a fork
+8	190		has taken a fork
+8	190		is eating
+9	53		is thinking
+9	21		is thinking
+9	124		has taken a fork
+9	124		has taken a fork
+9	124		is eating
+10	81		is thinking
+10	122		has taken a fork
+10	122		has taken a fork
+10	122		is eating
+11	125		is thinking
+11	83		is thinking
+11	126		has taken a fork
+12	126		has taken a fork
+12	126		is eating
+12	26		has taken a fork
+12	26		has taken a fork
+12	26		is eating
+13	130		has taken a fork
+13	130		has taken a fork
+13	130		is eating
+56	24		has taken a fork
+56	24		has taken a fork
+56	24		is eating
+57	90		has taken a fork
+57	90		has taken a fork
+57	90		is eating
+58	14		has taken a fork
+58	14		has taken a fork
+58	14		is eating
+59	128		has taken a fork
+59	128		has taken a fork
+59	128		is eating
+59	88		has taken a fork
+60	88		has taken a fork
+60	88		is eating
+60	77		is thinking
+60	6		has taken a fork
+61	6		has taken a fork
+61	6		is eating
+61	39		is thinking
+61	63		is thinking
+62	135		is thinking
+62	84		has taken a fork
+63	84		has taken a fork
+63	84		is eating
+63	20		has taken a fork
+63	20		has taken a fork
+64	20		is eating
+64	87		is thinking
+64	129		is thinking
+65	151		is thinking
+65	48		has taken a fork
+65	48		has taken a fork
+65	48		is eating
+66	136		has taken a fork
+66	136		has taken a fork
+66	136		is eating
+66	85		is thinking
+67	30		has taken a fork
+67	30		has taken a fork
+67	30		is eating
+67	140		has taken a fork
+67	140		has taken a fork
+67	140		is eating
+68	91		is thinking
+68	47		is thinking
+69	54		has taken a fork
+69	54		has taken a fork
+69	54		is eating
+70	96		has taken a fork
+70	96		has taken a fork
+70	96		is eating
+70	137		is thinking
+70	137		has taken a fork
+71	13		is thinking
+71	33		is thinking
+72	93		is thinking
+72	139		is thinking
+73	141		is thinking
+73	99		is thinking
+73	98		has taken a fork
+74	98		has taken a fork
+74	98		is eating
+74	3		is thinking
+75	38		has taken a fork
+75	38		has taken a fork
+75	38		is eating
+76	29		is thinking
+76	95		is thinking
+77	142		has taken a fork
+77	142		has taken a fork
+77	142		is eating
+77	56		has taken a fork
+78	56		has taken a fork
+78	56		is eating
+78	9		is thinking
+79	52		has taken a fork
+79	52		has taken a fork
+79	52		is eating
+79	148		has taken a fork
+80	148		has taken a fork
+80	148		is eating
+80	145		is thinking
+80	92		has taken a fork
+81	92		has taken a fork
+81	92		is eating
+81	94		has taken a fork
+81	94		has taken a fork
+81	94		is eating
+82	17		is thinking
+82	41		is thinking
+83	150		has taken a fork
+83	150		has taken a fork
+83	150		is eating
+83	143		is thinking
+84	149		is thinking
+84	159		is thinking
+85	152		has taken a fork
+85	152		has taken a fork
+85	152		is eating
+85	51		is thinking
+86	68		has taken a fork
+86	68		has taken a fork
+86	68		is eating
+87	154		has taken a fork
+87	154		has taken a fork
+87	154		is eating
+87	37		is thinking
+88	147		is thinking
+88	156		has taken a fork
+88	156		has taken a fork
+88	156		is eating
+89	155		is thinking
+92	64		has taken a fork
+92	64		has taken a fork
+93	64		is eating
+93	69		is thinking
+93	158		has taken a fork
+94	158		has taken a fork
+94	158		is eating
+94	104		has taken a fork
+94	104		has taken a fork
+94	104		is eating
+95	103		is thinking
+95	34		has taken a fork
+95	34		has taken a fork
+95	34		is eating
+96	60		has taken a fork
+96	60		has taken a fork
+96	60		is eating
+97	157		is thinking
+97	44		has taken a fork
+97	44		has taken a fork
+97	44		is eating
+98	70		has taken a fork
+98	70		has taken a fork
+98	70		is eating
+99	62		has taken a fork
+99	62		has taken a fork
+99	62		is eating
+99	153		is thinking
+100	36		has taken a fork
+100	36		has taken a fork
+100	36		is eating
+100	11		is thinking
+101	100		has taken a fork
+101	100		has taken a fork
+101	100		is eating
+101	101		is thinking
+102	22		has taken a fork
+102	22		has taken a fork
+102	22		is eating
+103	65		is thinking
+103	72		has taken a fork
+103	72		has taken a fork
+103	72		is eating
+104	102		has taken a fork
+104	102		has taken a fork
+104	102		is eating
+201	125		has taken a fork
+202	125		has taken a fork
+202	125		is eating
+202	97		is thinking
+203	8		has taken a fork
+203	8		has taken a fork
+204	8		is eating
+220	58		has taken a fork
+220	58		has taken a fork
+220	58		is eating
+221	89		has taken a fork
+221	83		has taken a fork
+222	83		has taken a fork
+222	83		is eating
+222	129		has taken a fork
+223	129		has taken a fork
+223	129		is eating
+223	53		has taken a fork
+224	53		has taken a fork
+224	53		is eating
+225	61		is thinking
+225	61		has taken a fork
+228	51		has taken a fork
+228	51		has taken a fork
+228	51		is eating
+229	151		has taken a fork
+229	151		has taken a fork
+229	151		is eating
+229	155		has taken a fork
+230	155		has taken a fork
+230	155		is eating
+231	65		has taken a fork
+231	65		has taken a fork
+231	65		is eating
+231	21		has taken a fork
+231	21		has taken a fork
+232	21		is eating
+105	163		is thinking
+233	97		has taken a fork
+233	97		has taken a fork
+233	97		is eating
+266	63		has taken a fork
+266	63		has taken a fork
+266	63		is eating
+267	137		has taken a fork
+267	137		is eating
+268	91		has taken a fork
+268	91		has taken a fork
+268	91		is eating
+269	33		has taken a fork
+269	33		has taken a fork
+270	33		is eating
+270	61		has taken a fork
+270	61		is eating
+270	69		has taken a fork
+271	69		has taken a fork
+271	69		is eating
+274	99		has taken a fork
+274	99		has taken a fork
+274	99		is eating
+358	80		has taken a fork
+358	80		has taken a fork
+358	80		is eating
+360	123		has taken a fork
+360	123		has taken a fork
+360	123		is eating
+360	101		has taken a fork
+361	101		has taken a fork
+361	101		is eating
+362	127		has taken a fork
+362	127		has taken a fork
+362	127		is eating
+363	132		has taken a fork
+363	132		has taken a fork
+363	132		is eating
+363	87		has taken a fork
+364	87		has taken a fork
+364	87		is eating
+382	135		has taken a fork
+382	135		has taken a fork
+383	135		is eating
+383	138		has taken a fork
+383	138		has taken a fork
+383	138		is eating
+384	37		has taken a fork
+384	37		has taken a fork
+384	37		is eating
+385	141		has taken a fork
+385	141		has taken a fork
+385	141		is eating
+386	93		has taken a fork
+386	93		has taken a fork
+386	93		is eating
+105	4		has taken a fork
+388	4		has taken a fork
+388	4		is eating
+391	66		has taken a fork
+391	66		has taken a fork
+392	66		is eating
+106	160		has taken a fork
+392	160		has taken a fork
+392	160		is eating
+393	89		has taken a fork
+393	89		is eating
+394	134		has taken a fork
+106	45		is thinking
+436	127		died
+106	161		is thinking
+106	75		is thinking
+107	27		is thinking
+107	167		is thinking
+108	67		is thinking
+109	79		is thinking
+109	169		is thinking
+109	19		is thinking
+109	165		is thinking
+110	171		is thinking
+111	15		is thinking
+111	111		is thinking
+111	73		is thinking
+112	71		is thinking
+113	177		is thinking
+113	175		is thinking
+113	105		is thinking
+114	109		is thinking
+114	35		is thinking
+114	181		is thinking
+114	55		is thinking
+115	179		is thinking
+115	23		is thinking
+115	173		is thinking
+116	7		is thinking
+116	183		is thinking
+117	119		is thinking
+118	5		is thinking
+118	115		is thinking
+118	187		is thinking
+119	113		is thinking
+119	185		is thinking
+119	59		is thinking
+120	193		is thinking
+121	189		is thinking
+121	43		is thinking
+122	1		is thinking
+123	191		is thinking
+128	121		is thinking
+129	195		is thinking
+129	197		is thinking
+130	117		is thinking
+135	25		is thinking
+183	31		is thinking
+186	133		is thinking
+187	131		is thinking
+188	49		is thinking
+200	107		is thinking
+==91994== 
+==91994== Use --history-level=approx or =none to gain increased speed, at
+==91994== the cost of reduced accuracy of conflicting-access information
+==91994== For lists of detected and suppressed errors, rerun with: -s
+==91994== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1252016 from 217)

@@ -43,7 +43,7 @@ void ft_sleep(long long delay_ms)
 	gap = m_time + delay_ms;
 	while (ft_time() < gap)
 	{
-		usleep(10);
+		usleep(5);
 	}
 }
 

@@ -1,6 +1,6 @@
 #tester
 /LazyPhilosophersTester
-
+/thales_tester
 
 #objets
 ./philo/srcs/*.o

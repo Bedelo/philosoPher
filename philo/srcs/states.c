@@ -1,9 +1,6 @@
 #include "../includes/philosopher.h"
 
 
-
-
-
 void	lock_fork(t_philo *philo, t_data *data)
 {
 	int i;
@@ -79,12 +76,15 @@ void	sleeping_thinking(t_philo *philo)
 	m_time = ft_time();
 	if (!get_i(&data->over, &data->death))
 	{
-		ft_sleep(data->time_sleep);
+		if (data->time_sleep > data->time_dead - data->time_eat)
+			ft_sleep(data->time_dead - data->time_eat);
+		else
+			ft_sleep(data->time_sleep);
 		print_sleeping(philo, data, m_time);
 	}
 	if (!get_i(&data->over, &data->death))
 	{
-		m_time = ft_time();
+		// m_time = ft_time();
 		print_thinking(philo, data, m_time);
 		if (philo->time_stash + data->time_sleep < data->time_eat)
 		{

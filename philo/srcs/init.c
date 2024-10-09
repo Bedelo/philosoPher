@@ -7,7 +7,7 @@ int	use_case_1(t_data *data)
 	res = 0;
 	if (data->nb_philos == 1)
 	{
-		printf("0\t1\t\tis died\n");
+		printf("%d\t1\t\tis died\n", data->time_dead);
 		ft_sleep(data->time_dead);
 		res++;
 	}
@@ -38,14 +38,8 @@ static void init_philos(t_data *data)
 
 static void	init_thread(t_data *data)
 {
-	monitoring_creation(data);
 	philos_creation(data);
-	// if (!pthread_mutex_lock(&data->r_w))
-	// {
-	// 	data->philo_ready = 1;
-	// 	data->time_of_begin = ft_time();
-	// 	pthread_mutex_unlock(&data->r_w);
-	// }
+	monitoring_creation(data);
 	philos_join(data);
 	if (!monitoring_join(data))
 	{
@@ -76,7 +70,8 @@ static void	start0(t_data *data, char **av)
 	data->death = 0;
 	data->philo_ready = 0;
 	data->meals_over = 0;
-	data->time_of_begin = ft_time() + data->nb_philos * 100;
+	// data->time_of_begin = ft_time() + data->nb_philos * 50;
+	set_ll(&data->r_w, &data->time_of_begin, 0);
 	init_philos(data);
 	init_thread(data);
 }

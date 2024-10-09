@@ -8,6 +8,7 @@ int	check_digit(char **av)
 	int		j;
 
 	i = 1;
+	j = 0;
 	c = av;
 	while (c[i])
 	{

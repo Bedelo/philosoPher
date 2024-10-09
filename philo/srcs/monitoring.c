@@ -27,13 +27,15 @@ static void	*m_routine(void *arg)
 			set_i(&data->over, &data->death, 1);
 			if (!pthread_mutex_lock(&data->printable))
 			{
-				
+
 				printf("%lld\t%d\t\tdied\n",
-					ft_time() - data->time_of_begin, data->philos[off].name + 1);
+					ft_time() - get_ll(&data->r_w, &data->time_of_begin),
+					data->philos[off].name + 1);
 				pthread_mutex_unlock(&(data->printable));
 			}
 			break ;
 		}
+		ft_sleep(1);
 		off = 0;
 		full_meals = 0;
 		while (off < data->nb_philos && get_i(&data->r_w, &data->philos[off].run))
@@ -43,6 +45,7 @@ static void	*m_routine(void *arg)
 		}
 		if (full_meals == data->meals_max * data->nb_philos)
 			break ;
+		ft_sleep(1);
 	}
 	return (NULL);
 }
