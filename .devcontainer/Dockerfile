@@ -1,18 +1,17 @@
 FROM ubuntu
 
-ARG USERNAME=student
+ARG USERNAME=ubuntu
 
 # Create user
-RUN useradd $USERNAME \
-    && apt-get update \
-    && apt-get install -y sudo \
+RUN apt-get update \
+    && apt install -y sudo \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
 
 
 # Install necessary packages (env dev 42)
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
+    apt install -y --no-install-recommends \
         build-essential \
         clang \
         llvm \
@@ -21,28 +20,23 @@ RUN apt-get update && \
         valgrind \
         python3 \
         python3-pip \
-        python3-venv \
         git \
-        zsh \
-        openssh-client \
+  	    vim \
+        ssh \
         fish && \
     apt-get clean
-
-# Installation Oh-my-ZSH
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
 # Switch to user $USERNAME
 USER $USERNAME
 
+# Install Pipx && norminette && c_formatter_42
+RUN sudo apt-get update && \
+	sudo apt install -y python3-setuptools pipx && \
+	pipx install  norminette c_formatter_42
+
 WORKDIR /home/${USERNAME}
 
-# Install env python && norminette && c_formatter_42
-RUN  python3 -m venv $HOME/.venv && \
-    . $HOME/.venv/bin/activate && \
-    python3 -m pip install --upgrade pip setuptools && \
-    python3 -m pip install norminette && \
-    echo "export PATH=\$PATH:$HOME/.venv/bin" >> $HOME/.profile && \
-    deactivate
+ENV PATH="$PATH:/home/${USERNAME}/.local/bin"
 
 # Start with Fish Shell
 CMD [ "fish" ]
