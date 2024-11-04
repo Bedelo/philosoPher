@@ -85,14 +85,15 @@ static void	*routine(void *philosophe)
 	philo = (t_philo *)philosophe;
 	data = philo->data;
 	// philo->time_last_meal = data->time_of_begin;
-	while (check_death(philo, data))
+	while (check_death(philo, data) && !full_meals(philo, data))
 	{
 		eating(philo);
 		sleeping_thinking(philo);
-		if (full_meals(philo, data))
-			break;
+		// if (full_meals(philo, data))
+		// 	break;
 	}
 	set_i(&data->over, &data->meals_over, data->meals_over + 1);
+	ft_sleep(100);
 	return (NULL);
 }
 

@@ -65,11 +65,6 @@ void	eating(t_philo *philo)
 		ft_sleep(data->time_eat);
 		set_i(&data->r_w, &philo->nb_of_meal, philo->nb_of_meal + 1);
 	}
-	// else if (data->time_dead < data->eat)
-	// {
-	// 	ft_sleep(data->time_dead);
-	// 	set
-	// }
 	else
 	{
 		ft_sleep(philo->time_last_meal + data->time_dead - m_time);

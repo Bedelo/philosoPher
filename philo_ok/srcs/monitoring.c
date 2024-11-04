@@ -7,6 +7,7 @@ static void	*m_routine(void *arg)
 	int		off;
 	int		full_meals;
 	int		philos_off;
+	t_philo	philosophe;
 
 	data = (t_data *)arg;
 	philos_off = 0;
@@ -15,7 +16,8 @@ static void	*m_routine(void *arg)
 		off = 0;
 		while (off < data->nb_philos && !philos_off)
 		{
-			if (!get_i(&data->r_w, &data->philos[off].run))
+			philosophe = get_phi(&data->r_w, &data->philos[off]);
+			if (!get_i(&data->r_w, &(philosophe.run)))
 			{
 				philos_off++;
 				break;
@@ -35,7 +37,7 @@ static void	*m_routine(void *arg)
 			}
 			break ;
 		}
-		ft_sleep(50);
+		// ft_sleep(25);
 		off = 0;
 		philos_off = 0;
 		full_meals = 0;

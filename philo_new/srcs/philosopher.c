@@ -95,16 +95,16 @@ static void	*routine(void *philosophe)
 	while (!get_i(&data->over, &data->death))
 	{
 		// delay(philo, data);
+		if (check_death(philo, data))
 		{
-		check_death(philo, data);
-			{
-				eating(philo, ft_time());
-				// if (check_death(philo, data))
-					sleeping_thinking(philo, ft_time());
-			}
-			if (full_meals(philo, data))
-				break ;
+			eating(philo, ft_time());
+			// if (check_death(philo, data))
+				sleeping_thinking(philo, ft_time());
 		}
+		else
+			break ;
+		if (full_meals(philo, data))
+			break ;
 	}
 	return (NULL);
 }
