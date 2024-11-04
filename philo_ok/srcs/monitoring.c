@@ -75,13 +75,13 @@ static void	*m_routine(void *arg)
 			break ;
 		}
 
-		// if (get_i(&data->r_w, &data->meals_over) == data->meals_max)
-		// 	break;
-		stop = 0;
-		while (i < data->nb_philos)
-			stop += get_i(&data->r_w, &data->philos[i].nb_of_meal);
-		if (stop == data->nb_philos * data->meals_max)
-				break ;
+		if (get_i(&data->r_w, &data->meals_over) == data->meals_max)
+			break;
+		// stop = 0;
+		// while (i < data->nb_philos)
+		// 	stop += get_i(&data->r_w, &data->philos[i].nb_of_meal);
+		// if (stop == data->nb_philos * data->meals_max)
+		// 		break ;
 
 	}
 	ft_sleep(100);
