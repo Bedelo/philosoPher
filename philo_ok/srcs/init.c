@@ -66,10 +66,12 @@ static void	start0(t_data *data, char **av)
 	pthread_mutex_init(&data->printable, NULL);
 	pthread_mutex_init(&data->over, NULL);
 	pthread_mutex_init(&data->r_w, NULL);
+	pthread_mutex_init(&data->dead_mut, NULL);
 	data->forks = forks_tab(data->forks, data->nb_philos);
 	data->death = 0;
 	data->philo_ready = 0;
 	data->meals_over = 0;
+	data->first_dead = -1;
 	data->time_of_begin = ft_time();
 	init_philos(data);
 	init_thread(data);

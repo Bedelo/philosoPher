@@ -38,6 +38,30 @@ void	unlock_fork(t_philo *philo, t_data *data)
 	}
 }
 
+// void	eating(t_philo *philo)
+// {
+// 	t_data		*data;
+// 	long long	m_time;
+
+// 	data = philo->data;
+// 	lock_fork(philo, data);
+// 	m_time = ft_time();
+// 	print_is_eating(philo, data, m_time);
+// 	if (m_time + data->time_eat < philo->time_last_meal + data->time_dead)
+// 	{
+// 		ft_sleep(data->time_eat);
+// 		set_i(&data->r_w, &philo->nb_of_meal, philo->nb_of_meal + 1);
+// 	}
+// 	else
+// 	{
+// 		ft_sleep(philo->time_last_meal + data->time_dead - m_time);
+// 		set_i(&data->over, &philo->run, 0);
+// 	}
+// 	philo->time_last_meal = ft_time();
+// 	unlock_fork(philo, data);
+// }
+
+
 void	eating(t_philo *philo)
 {
 	t_data		*data;
@@ -47,32 +71,20 @@ void	eating(t_philo *philo)
 	lock_fork(philo, data);
 	m_time = ft_time();
 	print_is_eating(philo, data, m_time);
-	// if (data->time_dead < data-> time_eat)
-	// {
-	// 	ft_sleep(data->time_dead);
-	// 	philo->time_last_meal = m_time;
-	// 	// set_i(&data->r_w, &philo->nb_of_meal, philo->nb_of_meal + 1);
-	// 	set_i(&data->r_w, &philo->run, 0);
-	// }
-	// else
-	// {
-	// 	ft_sleep(data->time_eat);
-	// 	philo->time_last_meal = m_time;
-	// 	// set_i(&data->r_w, &philo->nb_of_meal, philo->nb_of_meal + 1);
-	// }
 	if (m_time + data->time_eat < philo->time_last_meal + data->time_dead)
 	{
 		ft_sleep(data->time_eat);
 		set_i(&data->r_w, &philo->nb_of_meal, philo->nb_of_meal + 1);
+		philo->time_last_meal = ft_time();
 	}
 	else
 	{
 		ft_sleep(philo->time_last_meal + data->time_dead - m_time);
-		set_i(&data->over, &philo->run, 0);
+		set_i(&data->dead_mut, &data->first_dead, philo->name);
 	}
-	philo->time_last_meal = ft_time();
 	unlock_fork(philo, data);
 }
+
 
 void	sleeping_thinking(t_philo *philo)
 {
@@ -84,13 +96,13 @@ void	sleeping_thinking(t_philo *philo)
 	{
 		m_time = ft_time();
 		print_sleeping(philo, data, m_time);
-		// if (data->time_sleep > data->time_dead - data->time_eat)
-		if( philo->time_last_meal + data->time_dead
+		if ( philo->time_last_meal + data->time_dead
 			< m_time + data->time_sleep)
 			ft_sleep(philo->time_last_meal + data->time_dead - m_time);
 		else
 			ft_sleep(data->time_sleep);
 	}
+	usleep(500);
 	if (!get_i(&data->over, &data->death))
 	{
 		m_time = ft_time();

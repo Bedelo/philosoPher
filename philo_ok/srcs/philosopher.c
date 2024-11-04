@@ -11,16 +11,21 @@
 // 	}
 // }
 
+// static int	check_death(t_philo *philo, t_data *data)
+// {
+// 	long long	m_time;
+
+// 	 m_time = ft_time();
+// 	if (philo->time_last_meal + data->time_dead < m_time)
+// 	{
+// 		set_i(&data->over, &philo->run, 0);
+// 	}
+// 	return (get_i(&data->over, &philo->run));
+// }
+
 static int	check_death(t_philo *philo, t_data *data)
 {
-	long long	m_time;
-
-	 m_time = ft_time();
-	if (philo->time_last_meal + data->time_dead < m_time)
-	{
-		set_i(&data->over, &philo->run, 0);
-	}
-	return (get_i(&data->over, &philo->run));
+	return (1);
 }
 
 static int	full_meals(t_philo *philo, t_data *data)
@@ -28,9 +33,11 @@ static int	full_meals(t_philo *philo, t_data *data)
 	int	stop;
 
 	stop = 0;
-	philo->nb_of_meal = philo->nb_of_meal + 1;
 	if (philo->nb_of_meal == data->meals_max)
+	{
+		// set_i(&data->r_w, &data->meals_over, data->meals_over + 1);
 		stop = 1;
+	}
 	return (stop);
 }
 
@@ -84,16 +91,15 @@ static void	*routine(void *philosophe)
 
 	philo = (t_philo *)philosophe;
 	data = philo->data;
-	// philo->time_last_meal = data->time_of_begin;
-	while (check_death(philo, data) && !full_meals(philo, data))
+	while (get_i(&data->dead_mut, &data->first_dead) < 0)
+	// while (!get_i(&data->over, &data->death) && !full_meals(philo, data))
+	// while (check_death(philo, data) && !full_meals(philo, data))
 	{
 		eating(philo);
 		sleeping_thinking(philo);
-		// if (full_meals(philo, data))
-		// 	break;
+		if (full_meals(philo, data))
+			break ;
 	}
-	set_i(&data->over, &data->meals_over, data->meals_over + 1);
-	ft_sleep(100);
 	return (NULL);
 }
 

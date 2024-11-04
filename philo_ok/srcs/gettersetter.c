@@ -19,11 +19,11 @@ int get_i(pthread_mutex_t *mut, int *value)
 	return (ret);
 }
 
-t_philo get_phi(pthread_mutex_t *mut, t_philo *value)
+t_philo	*get_philo(pthread_mutex_t *mut, t_philo *value)
 {
-	t_philo ret;
+	t_philo  *ret;
 	pthread_mutex_lock(mut);
-	ret = *value;
+	ret = value;
 	pthread_mutex_unlock(mut);
 	return (ret);
 }
@@ -39,5 +39,12 @@ void	set_i(pthread_mutex_t *mut, int *dst, int src)
 {
 	pthread_mutex_lock(mut);
 	*dst = src;
+	pthread_mutex_unlock(mut);
+}
+
+void	set_philo(pthread_mutex_t *mut, t_philo *dst, t_philo *src)
+{
+	pthread_mutex_lock(mut);
+	dst = src;
 	pthread_mutex_unlock(mut);
 }
