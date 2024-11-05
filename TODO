@@ -4,18 +4,6 @@ gestion helgrind
 
 #test
 use case
-5 800 200 200 7
-data race
-memory leaks
-fails
-meals number
-
-4 310 200 100
-timestamp
-valgrind
-helgrind
-
-5 60 60 60
-helgrind
+change data->first_dead == -1 instead data->death to check should continue 
 
 #DONE
