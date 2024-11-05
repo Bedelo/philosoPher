@@ -92,7 +92,8 @@ void	sleeping_thinking(t_philo *philo)
 	long long	m_time;
 
 	data = philo->data;
-	if (!get_i(&data->over, &data->death))
+	// if (!get_i(&data->over, &data->death))
+	if (get_i(&data->dead_mut, &data->first_dead) < 0)
 	{
 		m_time = ft_time();
 		print_sleeping(philo, data, m_time);
@@ -109,7 +110,8 @@ void	sleeping_thinking(t_philo *philo)
 		}
 	}
 	usleep(500);
-	if (!get_i(&data->over, &data->death))
+	// if (!get_i(&data->over, &data->death))
+	if (get_i(&data->dead_mut, &data->first_dead) < 0)
 	{
 		m_time = ft_time();
 		print_thinking(philo, data, m_time);
