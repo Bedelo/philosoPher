@@ -98,7 +98,10 @@ void	sleeping_thinking(t_philo *philo)
 		print_sleeping(philo, data, m_time);
 		if ( philo->time_last_meal + data->time_dead
 			< m_time + data->time_sleep)
-			ft_sleep(philo->time_last_meal + data->time_dead - m_time);
+			{
+				ft_sleep(philo->time_last_meal + data->time_dead - m_time - data->time_eat);
+				set_i(&data->dead_mut, &data->first_dead, philo->name);
+			}
 		else
 			ft_sleep(data->time_sleep);
 	}

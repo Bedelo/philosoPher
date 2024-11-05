@@ -75,7 +75,7 @@ static void	*m_routine(void *arg)
 			break ;
 		}
 
-		if (get_i(&data->r_w, &data->meals_over) == data->meals_max)
+		if (data->meals_max == get_i(&data->r_w, &data->meals_over))
 			break;
 		// stop = 0;
 		// while (i < data->nb_philos)

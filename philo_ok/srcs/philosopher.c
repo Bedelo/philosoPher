@@ -35,7 +35,7 @@ static int	full_meals(t_philo *philo, t_data *data)
 	stop = 0;
 	if (philo->nb_of_meal == data->meals_max)
 	{
-		// set_i(&data->r_w, &data->meals_over, data->meals_over + 1);
+		set_i(&data->r_w, &data->meals_over, data->meals_over + 1);
 		stop = 1;
 	}
 	return (stop);
