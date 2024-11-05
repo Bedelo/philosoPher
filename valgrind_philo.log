@@ -1,5 +1,0 @@
-==56010== Memcheck, a memory error detector
-==56010== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==56010== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==56010== Command: ./philo_ok/philo 5 800 200 200 7
-==56010== 
