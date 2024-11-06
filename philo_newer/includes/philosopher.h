@@ -42,12 +42,13 @@ typedef struct s_data
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		over;
 	pthread_mutex_t		r_w;
-	int					set_meal;
+	pthread_mutex_t		dead_mut;
+	int					barrier;
+	int					first_dead;
 	int					meals_over;
 	int					death;
 	long long			time_of_begin;
 	int					philo_ready;
-
 }	t_data;
 
 //synchroniser data pour les philo lors de lutilisation
@@ -63,7 +64,6 @@ int				take_forks(t_philo *philo, long long time);
 void			philos_creation(t_data *data);
 void			philos_join(t_data *data);
 void			philos_detach(t_data *data);
-
 
 long			ft_atol(const char *str);
 long long		ft_time(void);
@@ -83,10 +83,11 @@ void			eating(t_philo *philo);
 void			sleeping_thinking(t_philo *philo);
 void			thinking(t_philo *philo);
 
-
+t_philo			*get_philo(pthread_mutex_t *mut, t_philo *value);
 long long		get_ll(pthread_mutex_t *mut, long long *value);
 int				get_i(pthread_mutex_t *mut, int *value);
 void			set_ll(pthread_mutex_t *mut, long long *dst, long long src);
 void			set_i(pthread_mutex_t *mut, int *dst, int src);
+void			set_philo(pthread_mutex_t *mut, t_philo *dst, t_philo *src);
 
 #endif

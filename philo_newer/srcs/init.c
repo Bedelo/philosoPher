@@ -25,7 +25,7 @@ static void init_philos(t_data *data)
 		data->philos[i].run = 1;
 		data->philos[i].nb_of_meal = 0;
 		data->philos[i].time_stash = data->time_dead - data->time_eat - data->time_sleep;
-		// data->philos[i].time_last_meal = data->time_of_begin;
+		data->philos[i].time_last_meal = data->time_of_begin;
 		i++;
 	}
 	i = 0;
@@ -66,12 +66,13 @@ static void	start0(t_data *data, char **av)
 	pthread_mutex_init(&data->printable, NULL);
 	pthread_mutex_init(&data->over, NULL);
 	pthread_mutex_init(&data->r_w, NULL);
+	pthread_mutex_init(&data->dead_mut, NULL);
 	data->forks = forks_tab(data->forks, data->nb_philos);
 	data->death = 0;
 	data->philo_ready = 0;
 	data->meals_over = 0;
+	data->first_dead = -1;
 	data->time_of_begin = ft_time();
-	// set_ll(&data->r_w, &data->time_of_begin, 0);
 	init_philos(data);
 	init_thread(data);
 }

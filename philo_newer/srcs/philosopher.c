@@ -1,27 +1,31 @@
 #include "../includes/philosopher.h"
 
 
-void	wait_to_ready(t_data *data)
-{
-	while (1)
-	{
-		if (ft_time() > get_ll(&data->r_w, &data->time_of_begin))
-			break ;
-		usleep(20);
-	}
-}
+// void	wait_to_ready(t_data *data)
+// {
+// 	while (1)
+// 	{
+// 		if (ft_time() > get_ll(&data->r_w, &data->time_of_begin))
+// 			break ;
+// 		usleep(20);
+// 	}
+// }
+
+// static int	check_death(t_philo *philo, t_data *data)
+// {
+// 	long long	m_time;
+
+// 	 m_time = ft_time();
+// 	if (philo->time_last_meal + data->time_dead < m_time)
+// 	{
+// 		set_i(&data->over, &philo->run, 0);
+// 	}
+// 	return (get_i(&data->over, &philo->run));
+// }
 
 static int	check_death(t_philo *philo, t_data *data)
 {
-	long long	m_time;
-
-	m_time = ft_time();
-	if (philo->time_last_meal + data->time_dead < m_time )
-	{
-		set_i(&data->r_w, &philo->run, 0);
-	}
-
-	return (get_i(&data->r_w, &philo->run));
+	return (1);
 }
 
 static int	full_meals(t_philo *philo, t_data *data)
@@ -29,12 +33,10 @@ static int	full_meals(t_philo *philo, t_data *data)
 	int	stop;
 
 	stop = 0;
-	if (data->meals_max == -1 || philo->nb_of_meal < get_i(&data->r_w, &data->meals_max))
-		stop = 0;
-	else if (philo->nb_of_meal >= get_i(&data->r_w, &data->meals_max))
+	if (philo->nb_of_meal == data->meals_max)
 	{
+		set_i(&data->r_w, &data->meals_over, data->meals_over + 1);
 		stop = 1;
-		//set_i(&data->r_w, &data->meals_over, data->meals_over + 1);
 	}
 	return (stop);
 }
@@ -58,12 +60,12 @@ static int	full_meals(t_philo *philo, t_data *data)
 // 	}
 // }
 
-static void	wait_last_odd(t_philo *philo, t_data *data)
-{
-	if (data->nb_philos % 2 == 1
-		&& philo->name == data->nb_philos - 1)
-		ft_sleep(data->time_eat);
-}
+// static void	wait_last_odd(t_philo *philo, t_data *data)
+// {
+// 	if (data->nb_philos % 2 == 1
+// 		&& philo->name == data->nb_philos - 1)
+// 		ft_sleep(data->time_eat);
+// }
 
 // void set_last_meal(t_philo *philo, t_data *data)
 // {
@@ -89,20 +91,12 @@ static void	*routine(void *philosophe)
 
 	philo = (t_philo *)philosophe;
 	data = philo->data;
-	// set_last_meal(philo, data);
-	wait_last_odd(philo, data);
-	philo->time_last_meal = data->time_of_begin;
-	while (!get_i(&data->over, &data->death))
+	while (get_i(&data->dead_mut, &data->first_dead) < 0)
+	// while (!get_i(&data->over, &data->death) && !full_meals(philo, data))
+	// while (check_death(philo, data) && !full_meals(philo, data))
 	{
-		// delay(philo, data);
-		if (check_death(philo, data))
-		{
-			eating(philo, ft_time());
-			// if (check_death(philo, data))
-				sleeping_thinking(philo, ft_time());
-		}
-		else
-			break ;
+		eating(philo);
+		sleeping_thinking(philo);
 		if (full_meals(philo, data))
 			break ;
 	}
