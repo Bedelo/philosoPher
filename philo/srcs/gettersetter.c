@@ -1,6 +1,5 @@
 #include "../includes/philosopher.h"
 
-
 long long get_ll(pthread_mutex_t *mut, long long *value)
 {
 	long long ret;

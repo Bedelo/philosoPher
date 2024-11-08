@@ -1,6 +1,5 @@
 #include "../includes/philosopher.h"
 
-
 int	check_digit(char **av)
 {
 	char	**c;
@@ -64,8 +63,6 @@ int	check_boundary(char **av)
 	}
 	return (0);
 }
-
-
 
 int	parsing(char **av)
 {

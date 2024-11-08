@@ -77,7 +77,6 @@ static void	start0(t_data *data, char **av)
 	init_thread(data);
 }
 
-
 int	init(t_data *data, int ac, char **av)
 {
 	if (ac < 5 || ac > 6)
