@@ -1,6 +1,5 @@
 #include "../includes/philosopher.h"
 
-
 long	ft_atol(const char *str)
 {
 	long		a;
