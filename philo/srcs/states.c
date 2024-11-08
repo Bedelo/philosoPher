@@ -71,8 +71,7 @@ void	eating(t_philo *philo)
 	lock_fork(philo, data);
 	m_time = ft_time();
 	print_is_eating(philo, data, m_time);
-	// if (m_time + data->time_eat <= philo->time_last_meal + data->time_dead)
-	if (m_time + data->time_eat <= m_time + data->time_dead)
+	if (m_time + data->time_eat <= philo->time_last_meal + data->time_dead)
 	{
 		ft_sleep(data->time_eat);
 		// philo->nb_of_meal += 1;
@@ -98,9 +97,7 @@ void	sleeping_thinking(t_philo *philo)
 	{
 		m_time = ft_time();
 		print_sleeping(philo, data, m_time);
-		// if (philo->time_last_meal + data->time_dead
-		// 	< m_time + data->time_sleep)
-		if (m_time - data->time_eat + data->time_dead
+		if (philo->time_last_meal + data->time_dead
 			< m_time + data->time_sleep)
 		{
 			ft_sleep(philo->time_last_meal + data->time_dead - m_time - data->time_eat);

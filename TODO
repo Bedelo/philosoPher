@@ -1,9 +1,11 @@
 
-gestion helgrind
-
 
 #test
 use case
-change data->first_dead == -1 instead data->death to check should continue 
+
+200 410 200 200 10
+helgrind
+200 410 200 80 10
+helgrind
 
 #DONE
