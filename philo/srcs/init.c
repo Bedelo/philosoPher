@@ -24,7 +24,7 @@ static void init_philos(t_data *data)
 		data->philos[i].name = i;
 		data->philos[i].run = 1;
 		data->philos[i].nb_of_meal = 0;
-		data->philos[i].time_stash = data->time_dead - data->time_eat - data->time_sleep;
+		data->philos[i].time_stash = 0;
 		data->philos[i].time_last_meal = data->time_of_begin;
 		i++;
 	}
