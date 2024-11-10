@@ -1,30 +1,21 @@
 #include "../includes/philosopher.h"
 
-long long get_ll(pthread_mutex_t *mut, long long *value)
+long long	get_ll(pthread_mutex_t *mut, long long *value)
 {
-	long long ret;
+	long long	ret;
+
 	pthread_mutex_lock(mut);
 	ret = *value;
 	pthread_mutex_unlock(mut);
 	return (ret);
 }
 
-int get_i(pthread_mutex_t *mut, int *value)
+int	get_i(pthread_mutex_t *mut, int *value)
 {
 	int	ret;
-	
+
 	pthread_mutex_lock(mut);
 	ret = *value;
-	pthread_mutex_unlock(mut);
-	return (ret);
-}
-
-t_philo	*get_philo(pthread_mutex_t *mut, t_philo *value)
-{
-	t_philo	*ret;
-
-	pthread_mutex_lock(mut);
-	ret = value;
 	pthread_mutex_unlock(mut);
 	return (ret);
 }
@@ -43,9 +34,18 @@ void	set_i(pthread_mutex_t *mut, int *dst, int src)
 	pthread_mutex_unlock(mut);
 }
 
-void	set_philo(pthread_mutex_t *mut, t_philo *dst, t_philo *src)
-{
-	pthread_mutex_lock(mut);
-	dst = src;
-	pthread_mutex_unlock(mut);
-}
+// void	set_philo(pthread_mutex_t *mut, t_philo *dst, t_philo *src)
+// {
+// 	pthread_mutex_lock(mut);
+// 	dst = src;
+// 	pthread_mutex_unlock(mut);
+// }
+// t_philo	*get_philo(pthread_mutex_t *mut, t_philo *value)
+// {
+// 	t_philo	*ret;
+
+// 	pthread_mutex_lock(mut);
+// 	ret = value;
+// 	pthread_mutex_unlock(mut);
+// 	return (ret);
+// }

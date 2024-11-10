@@ -16,7 +16,7 @@
 # define ERROR_SIGN "NEGATIF SIGN FORBIDEN\n"
 # define ERROR_BOUND "BOUNDARY ERROR\n"
 
-typedef struct s_data t_data;
+typedef struct s_data	t_data;
 
 typedef struct s_philo
 {
@@ -51,14 +51,10 @@ typedef struct s_data
 	int					philo_ready;
 }	t_data;
 
-//synchroniser data pour les philo lors de lutilisation
-//ressource partager pour les thread avec printable
-
-
 pthread_mutex_t	*forks_tab(pthread_mutex_t *tab, int nb_philo);
 int				init(t_data	*data, int ac, char **av);
 void			start(t_data *data);
-void			clear_if_dead(t_data *data);
+// void			clear_if_dead(t_data *data);
 
 int				take_forks(t_philo *philo, long long time);
 void			philos_creation(t_data *data);
@@ -83,11 +79,11 @@ void			eating(t_philo *philo);
 void			sleeping_thinking(t_philo *philo);
 void			thinking(t_philo *philo);
 
-t_philo			*get_philo(pthread_mutex_t *mut, t_philo *value);
+// t_philo			*get_philo(pthread_mutex_t *mut, t_philo *value);
 long long		get_ll(pthread_mutex_t *mut, long long *value);
 int				get_i(pthread_mutex_t *mut, int *value);
 void			set_ll(pthread_mutex_t *mut, long long *dst, long long src);
 void			set_i(pthread_mutex_t *mut, int *dst, int src);
-void			set_philo(pthread_mutex_t *mut, t_philo *dst, t_philo *src);
+// void			set_philo(pthread_mutex_t *mut, t_philo *dst, t_philo *src);
 
 #endif

@@ -53,3 +53,19 @@ int	ft_isdigit(int c)
 	else
 		return (0);
 }
+
+pthread_mutex_t	*forks_tab(pthread_mutex_t *tab, int nb_philos)
+{
+	int				i;
+
+	i = 0;
+	tab = malloc(sizeof(pthread_mutex_t) * nb_philos);
+	if (!tab)
+		return (NULL);
+	while (i < nb_philos)
+	{
+		pthread_mutex_init(&tab[i], NULL);
+		i++;
+	}
+	return (tab);
+}

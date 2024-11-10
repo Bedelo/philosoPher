@@ -66,7 +66,7 @@ int	check_boundary(char **av)
 
 int	parsing(char **av)
 {
-	if (check_sign(av)|| check_digit(av) || check_boundary(av))
+	if (check_sign(av) || check_digit(av) || check_boundary(av))
 		return (1);
 	else
 		return (0);

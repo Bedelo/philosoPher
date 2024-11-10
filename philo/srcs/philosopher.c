@@ -1,10 +1,5 @@
 #include "../includes/philosopher.h"
 
-static int	check_death(t_philo *philo, t_data *data)
-{
-	return (1);
-}
-
 static int	full_meals(t_philo *philo, t_data *data)
 {
 	int	stop;
@@ -42,8 +37,8 @@ void	philos_creation(t_data *data)
 	i = 0;
 	while (i < data->nb_philos)
 	{
-		pthread_create(&(data->philos[i].phi), NULL, routine
-			, (void *)&((data->philos[i].name)));
+		pthread_create(&(data->philos[i].phi), NULL, routine,
+			(void *)&((data->philos[i].name)));
 		i++;
 	}
 }
@@ -76,20 +71,4 @@ void	philos_detach(t_data *data)
 		pthread_mutex_destroy(&data->forks[i]);
 		i++;
 	}
-}
-
-pthread_mutex_t	*forks_tab(pthread_mutex_t *tab, int nb_philos)
-{
-	int				i;
-
-	i = 0;
-	tab = malloc(sizeof(pthread_mutex_t) * nb_philos);
-	if (!tab)
-		return (NULL);
-	while (i < nb_philos)
-	{
-		pthread_mutex_init(&tab[i], NULL);
-		i++;
-	}
-	return (tab);
 }

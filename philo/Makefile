@@ -17,6 +17,7 @@ PHILO_SRC = $(SRCS)philosopher.c \
 			$(SRCS)printer.c \
 			$(SRCS)monitoring.c \
 			$(SRCS)gettersetter.c \
+			$(SRCS)fork_handler.c \
 			$(SRCS)parsing.c
 
 
