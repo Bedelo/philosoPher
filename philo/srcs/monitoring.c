@@ -21,7 +21,7 @@ static void	*m_routine(void *arg)
 			pthread_mutex_unlock(&(data->printable));
 			break ;
 		}
-		if (data->nb_philos == get_i(&data->r_w, &data->meals_over))
+		if (data->nb_philos == get_i(&data->over, &data->meals_over))
 			break ;
 	}
 	ft_sleep(300);

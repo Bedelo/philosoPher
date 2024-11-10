@@ -3,7 +3,85 @@
 #test
 use case
 
-check synchro grand nombre de philo
-delta de philo_eats a ameliorer pour eviter les problemes de synchro
-check sleep
 
+[+] Testing philo with 5 800 200 200 7
+[+] Philosopher 1 ate 0 times
+[-] Test #10 Failed: Philosopher 1 has not eaten enough times or has eaten too many times
+[-] Test #10 Failed: Failed with 5 800 200 200 7
+[+] Test #10 Valgrind Test Succeeded !
+[-] Test #10 Helgrind Test Failed: Race conditions detected
+
+
+[+] Testing philo with 3 800 200 200 7
+[+] Philosopher 1 ate 0 times
+[-] Test #11 Failed: Philosopher 1 has not eaten enough times or has eaten too many times
+[-] Test #11 Failed: Failed with 3 800 200 200 7
+[+] Test #11 Valgrind Test Succeeded !
+[-] Test #11 Helgrind Test Failed: Race conditions detected
+
+
+[+] Testing philo with 2 800 200 200 7
+[+] Philosopher 1 ate 0 times
+[-] Test #12 Failed: Philosopher 1 has not eaten enough times or has eaten too many times
+[-] Test #12 Failed: Failed with 2 800 200 200 7
+[+] Test #12 Valgrind Test Succeeded !
+[+] Test #12 Helgrind Test Succeeded !
+
+
+[+] Testing philo with 4 410 200 200 10
+[+] Philosopher 1 ate 0 times
+[-] Test #13 Failed: Philosopher 1 has not eaten enough times or has eaten too many times
+[-] Test #13 Failed: Failed with 4 410 200 200 10
+[+] Test #13 Valgrind Test Succeeded !
+[+] Test #13 Helgrind Test Succeeded !
+
+
+[+] Testing philo with 2 410 200 200 10
+[+] Philosopher 1 ate 0 times
+[-] Test #14 Failed: Philosopher 1 has not eaten enough times or has eaten too many times
+[-] Test #14 Failed: Failed with 2 410 200 200 10
+[+] Test #14 Valgrind Test Succeeded !
+[+] Test #14 Helgrind Test Succeeded !
+
+
+[+] Testing philo with 200 410 200 200 10
+[+] Philosopher 1 ate 0 times
+[-] Test #14 Failed: Philosopher 1 has not eaten enough times or has eaten too many times
+[-] Test #14 Failed: Failed with 200 410 200 200 10
+./thales_tester/test.sh: line 173: 11181 Killed                  timeout 30 valgrind --leak-check=full --errors-for-leak-kinds=all --error-exitcode=1 "$2/$1" $parameters &> "./valgrind_$1.log"
+[-] Test #14 Valgrind Test Failed: Memory leaks detected
+[+] Test #14 Helgrind Test Succeeded !
+
+
+[+] Testing philo with 7 800 200 500 7
+[+] Philosopher 1 ate 0 times
+[-] Test #14.1 Failed: Philosopher 1 has not eaten enough times or has eaten too many times
+[-] Test #14.1 Failed: Failed with 7 800 200 500 7
+[+] Test #14.1 Valgrind Test Succeeded !
+[+] Test #14.1 Helgrind Test Succeeded !
+
+
+[+] Testing philo with 199 610 200 200 10
+[+] Philosopher 1 ate 0 times
+[-] Test #15 Failed: Philosopher 1 has not eaten enough times or has eaten too many times
+[-] Test #15 Failed: Failed with 199 610 200 200 10
+./thales_tester/test.sh: line 173: 12109 Killed                  timeout 30 valgrind --leak-check=full --errors-for-leak-kinds=all --error-exitcode=1 "$2/$1" $parameters &> "./valgrind_$1.log"
+[-] Test #15 Valgrind Test Failed: Memory leaks detected
+[-] Test #15 Helgrind Test Failed: Race conditions detected
+
+
+[+] Testing philo with 199 610 200 80 10
+[+] Philosopher 1 ate 0 times
+[-] Test #16 Failed: Philosopher 1 has not eaten enough times or has eaten too many times
+[-] Test #16 Failed: Failed with 199 610 200 80 10
+[-] Test #16 Valgrind Test Failed: Memory leaks detected
+[-] Test #16 Helgrind Test Failed: Race conditions detected
+
+
+[+] Testing philo with 200 410 200 80 10
+[+] Philosopher 1 ate 0 times
+[-] Test #17 Failed: Philosopher 1 has not eaten enough times or has eaten too many times
+[-] Test #17 Failed: Failed with 200 410 200 80 10
+./thales_tester/test.sh: line 173: 13710 Killed                  timeout 30 valgrind --leak-check=full --errors-for-leak-kinds=all --error-exitcode=1 "$2/$1" $parameters &> "./valgrind_$1.log"
+[-] Test #17 Valgrind Test Failed: Memory leaks detected
+[-] Test #17 Helgrind Test Failed: Race conditions detected

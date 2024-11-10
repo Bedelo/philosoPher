@@ -7,7 +7,11 @@ static int	full_meals(t_philo *philo, t_data *data)
 	stop = 0;
 	if (philo->nb_of_meal == data->meals_max)
 	{
-		set_i(&data->r_w, &data->meals_over, data->meals_over + 1);
+		usleep(100);
+		// set_i(&data->over, &data->meals_over, data->meals_over + 1);
+		pthread_mutex_lock(&data->over);
+		data->meals_over = data->meals_over + 1;
+		pthread_mutex_unlock(&data->over);
 		stop = 1;
 	}
 	return (stop);
