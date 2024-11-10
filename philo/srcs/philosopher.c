@@ -42,7 +42,8 @@ void	philos_creation(t_data *data)
 	i = 0;
 	while (i < data->nb_philos)
 	{
-		pthread_create(&(data->philos[i].phi), NULL, routine, (void *)&((data->philos[i].name)));
+		pthread_create(&(data->philos[i].phi), NULL, routine
+			, (void *)&((data->philos[i].name)));
 		i++;
 	}
 }

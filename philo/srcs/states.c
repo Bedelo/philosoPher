@@ -2,7 +2,7 @@
 
 void	lock_fork(t_philo *philo, t_data *data)
 {
-	int i;
+	int	i;
 
 	i = (philo->name + 1) % data->nb_philos;
 	if (philo->name % 2 == 0)
@@ -23,7 +23,7 @@ void	lock_fork(t_philo *philo, t_data *data)
 
 void	unlock_fork(t_philo *philo, t_data *data)
 {
-	int i;
+	int	i;
 
 	i = (philo->name + 1) % data->nb_philos;
 	if (philo->name % 2 == 0)
@@ -115,7 +115,7 @@ void	unlock_fork(t_philo *philo, t_data *data)
 // }
 
 
-static int condition(t_philo *philo, long long m_time)
+static int	condition(t_philo *philo, long long m_time)
 {
 	t_data		*data;
 	int			res;

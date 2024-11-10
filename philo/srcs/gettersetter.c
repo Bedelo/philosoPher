@@ -11,7 +11,8 @@ long long get_ll(pthread_mutex_t *mut, long long *value)
 
 int get_i(pthread_mutex_t *mut, int *value)
 {
-	int ret;
+	int	ret;
+	
 	pthread_mutex_lock(mut);
 	ret = *value;
 	pthread_mutex_unlock(mut);
@@ -20,7 +21,8 @@ int get_i(pthread_mutex_t *mut, int *value)
 
 t_philo	*get_philo(pthread_mutex_t *mut, t_philo *value)
 {
-	t_philo  *ret;
+	t_philo	*ret;
+
 	pthread_mutex_lock(mut);
 	ret = value;
 	pthread_mutex_unlock(mut);

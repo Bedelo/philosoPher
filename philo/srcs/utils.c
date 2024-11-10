@@ -33,7 +33,7 @@ long long	ft_time(void)
 	return ((xtv.tv_sec * 1000) + (xtv.tv_usec / 1000));
 }
 
-void ft_sleep(long long delay_ms)
+void	ft_sleep(long long delay_ms)
 {
 	long long	m_time;
 	long long	gap;

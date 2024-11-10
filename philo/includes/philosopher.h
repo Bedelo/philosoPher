@@ -1,11 +1,11 @@
 #ifndef PHILOSOPHER_H
 # define PHILOSOPHER_H
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <pthread.h>
-#include <sys/time.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <pthread.h>
+# include <sys/time.h>
 
 # define SUCCESS 0
 # define FAILURE 1

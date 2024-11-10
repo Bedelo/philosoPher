@@ -14,7 +14,7 @@ int	use_case_1(t_data *data)
 	return (res);
 }
 
-static void init_philos(t_data *data)
+static void	init_philos(t_data *data)
 {
 	int		i;
 
