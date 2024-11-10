@@ -11,15 +11,22 @@ helgrind
 check states ligne 74-75
 
 #test
-m_time + time_eat <= time_last_meal + time_dead
 
  3 610 200 80
  200 < 610
  400 < 610
- 
+
 
  3 610 200 200
 
  200 410 200 80
 
  200 410 200 200
+
+ 3 610 200 80
+
+##
+4 310 200 100 e>s
+5 599 200 200
+199 800 300 100 e>s
+
