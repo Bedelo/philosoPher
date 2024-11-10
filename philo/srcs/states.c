@@ -58,12 +58,14 @@ static int	condition(t_philo *philo, long long m_time)
 		res = 2;
 	else if (data->time_dead < 3 * data->time_eat && data->nb_philos % 2 == 1)
 		res = 2;
-	// if ((philo->time_last_meal == data->time_of_begin && res == 2 && philo->nb_of_meal > 1)
-	if ((m_time < data->time_of_begin + data->time_eat && res == 2  && data->nb_philos % 2 == 0)
-		|| (m_time < data->time_of_begin + 2 * data->time_eat && res == 2 && data->nb_philos % 2 == 1))
+	if ((m_time < data->time_of_begin + data->time_eat
+			&& res == 2 && data->nb_philos % 2 == 0)
+		|| (m_time < data->time_of_begin + 2 * data->time_eat
+			&& res == 2 && data->nb_philos % 2 == 1))
 		res = 0;
 	return (res);
 }
+	// if ((philo->time_last_meal == data->time_of_begin && res == 2 && philo->nb_of_meal > 1)
 
 void	philo_die(t_philo *philo, int time)
 {
@@ -128,7 +130,7 @@ void	sleeping_thinking(t_philo *philo)
 	}
 	else
 		ft_sleep(data->time_sleep);
-	// usleep(500);
+	usleep(500);
 	if (get_i(&data->dead_mut, &data->first_dead) < 0)
 	{
 		m_time = ft_time();
