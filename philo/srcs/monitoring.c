@@ -24,7 +24,7 @@ static void	*m_routine(void *arg)
 		if (data->nb_philos == get_i(&data->r_w, &data->meals_over))
 			break ;
 	}
-	ft_sleep(100);
+	ft_sleep(300);
 	return (NULL);
 }
 
@@ -37,23 +37,3 @@ int	monitoring_join(t_data *data)
 {
 	return (pthread_join(data->monitoring_t, NULL));
 }
-
-// void	clear_if_dead(t_data *data)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	if (!pthread_mutex_lock(&data->r_w))
-// 	{
-// 		while (i < data->nb_philos)
-// 		{
-// 			if (!pthread_mutex_lock(&data->over))
-// 			{
-// 				data->philos[i].run = 0;
-// 				pthread_mutex_unlock(&data->over);
-// 			}
-// 			i++;
-// 		}
-// 		pthread_mutex_unlock(&data->r_w);
-// 	}
-// }

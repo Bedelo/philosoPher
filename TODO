@@ -3,30 +3,7 @@
 #test
 use case
 
-200 410 200 200 10
-helgrind
-200 410 200 80 10
-helgrind
-
-check states ligne 74-75
-
-#test
-
- 3 610 200 80
- 200 < 610
- 400 < 610
-
-
- 3 610 200 200
-
- 200 410 200 80
-
- 200 410 200 200
-
- 3 610 200 80
-
-##
-4 310 200 100 e>s
-5 599 200 200
-199 800 300 100 e>s
+check synchro grand nombre de philo
+delta de philo_eats a ameliorer pour eviter les problemes de synchro
+check sleep
 

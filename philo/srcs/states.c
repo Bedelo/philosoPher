@@ -58,8 +58,9 @@ static int	condition(t_philo *philo, long long m_time)
 		res = 2;
 	else if (data->time_dead < 3 * data->time_eat && data->nb_philos % 2 == 1)
 		res = 2;
-	if (philo->time_last_meal == data->time_of_begin && res == 2
-		&& philo->nb_of_meal > 1)
+	// if ((philo->time_last_meal == data->time_of_begin && res == 2 && philo->nb_of_meal > 1)
+	if ((m_time < data->time_of_begin + data->time_eat && res == 2  && data->nb_philos % 2 == 0)
+		|| (m_time < data->time_of_begin + 2 * data->time_eat && res == 2 && data->nb_philos % 2 == 1))
 		res = 0;
 	return (res);
 }
@@ -73,7 +74,7 @@ void	philo_die(t_philo *philo, int time)
 	set_i(&data->dead_mut, &data->first_dead, philo->name);
 }
 
-void	philo_eats(t_philo *philo, t_data *data, long long m_time, int res)
+void	philo_eats(t_philo *philo, t_data *data, int res, long long m_time)
 {
 	long long	delta;
 
@@ -84,10 +85,11 @@ void	philo_eats(t_philo *philo, t_data *data, long long m_time, int res)
 		philo_die(philo, data->time_dead);
 	else if (res == 2)
 	{
-		if (delta < 10)
-			ft_sleep(data->time_eat);
-		else
+		if (data->nb_philos % 2 == 0)
 			philo_die(philo, (data->time_dead - data->time_eat));
+		else
+			philo_die(philo, data->time_eat
+				- (3 * data->time_eat - data->time_dead));
 	}
 	else
 		ft_sleep(data->time_eat);
@@ -105,7 +107,7 @@ void	eating(t_philo *philo)
 	print_is_eating(philo, data, m_time);
 	philo->time_last_meal = m_time;
 	usecase = condition(philo, m_time);
-	philo_eats(philo, data, m_time, usecase);
+	philo_eats(philo, data, usecase, m_time);
 	philo->nb_of_meal += 1;
 	unlock_fork(philo, data);
 }
@@ -126,15 +128,15 @@ void	sleeping_thinking(t_philo *philo)
 	}
 	else
 		ft_sleep(data->time_sleep);
-	usleep(500);
+	// usleep(500);
 	if (get_i(&data->dead_mut, &data->first_dead) < 0)
 	{
 		m_time = ft_time();
+		print_thinking(philo, data, m_time);
 		if (data->nb_philos % 2 == 1)
 			ft_sleep(2 * data->time_eat - data->time_sleep);
 		else
 			ft_sleep(data->time_eat - data->time_sleep);
-		print_thinking(philo, data, m_time);
 	}
 }
 
