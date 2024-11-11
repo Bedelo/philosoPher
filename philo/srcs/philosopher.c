@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philosopher.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bsunda <bsunda@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/11 09:39:07 by bsunda            #+#    #+#             */
+/*   Updated: 2024/11/11 09:46:13 by bsunda           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philosopher.h"
 
 static int	full_meals(t_philo *philo, t_data *data)
@@ -8,7 +20,6 @@ static int	full_meals(t_philo *philo, t_data *data)
 	if (philo->nb_of_meal == data->meals_max)
 	{
 		usleep(100);
-		// set_i(&data->over, &data->meals_over, data->meals_over + 1);
 		pthread_mutex_lock(&data->over);
 		data->meals_over = data->meals_over + 1;
 		pthread_mutex_unlock(&data->over);

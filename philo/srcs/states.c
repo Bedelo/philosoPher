@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   states.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bsunda <bsunda@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/11 09:38:49 by bsunda            #+#    #+#             */
+/*   Updated: 2024/11/11 09:53:19 by bsunda           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philosopher.h"
 
 // void	lock_fork(t_philo *philo, t_data *data)
@@ -65,7 +77,6 @@ static int	condition(t_philo *philo, long long m_time)
 		res = 0;
 	return (res);
 }
-	// if ((philo->time_last_meal == data->time_of_begin && res == 2 && philo->nb_of_meal > 1)
 
 void	philo_die(t_philo *philo, int time)
 {
@@ -76,7 +87,7 @@ void	philo_die(t_philo *philo, int time)
 	set_i(&data->dead_mut, &data->first_dead, philo->name);
 }
 
-void	philo_eats(t_philo *philo, t_data *data, int res, long long m_time)
+void	philo_eats(t_philo *philo, t_data *data, int res)
 {
 	long long	delta;
 
@@ -109,7 +120,7 @@ void	eating(t_philo *philo)
 	print_is_eating(philo, data, m_time);
 	philo->time_last_meal = m_time;
 	usecase = condition(philo, m_time);
-	philo_eats(philo, data, usecase, m_time);
+	philo_eats(philo, data, usecase);
 	philo->nb_of_meal += 1;
 	unlock_fork(philo, data);
 }
