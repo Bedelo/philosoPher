@@ -6,7 +6,7 @@
 /*   By: bsunda <bsunda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:38:49 by bsunda            #+#    #+#             */
-/*   Updated: 2024/11/11 09:53:19 by bsunda           ###   ########.fr       */
+/*   Updated: 2024/11/16 15:36:07 by bsunda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,32 +50,34 @@
 // 	}
 // }
 
-static int	condition(t_philo *philo, long long m_time)
+static int	condition(t_philo *philo, long long m_time, int *res)
 {
 	t_data		*data;
-	int			res;
+	// int			res;
 
-	res = 0;
+	// res = 0;
 	data = philo->data;
 	if (data->time_dead < data->time_eat)
-		res = 1;
+		*res = 1;
 	else if (data->time_dead == data->time_eat)
 	{
 		if (data->time_sleep == data->time_eat)
-			res = 1;
+			*res = 1;
 	}
 	else if (data->time_dead + philo->time_last_meal < m_time)
-		res = 1;
+		*res = 1;
 	else if (data->time_dead < 2 * data->time_eat && data->nb_philos % 2 == 0)
-		res = 2;
+		*res = 2;
 	else if (data->time_dead < 3 * data->time_eat && data->nb_philos % 2 == 1)
-		res = 2;
+		*res = 2;
+	if (data->time_dead < 2 * data->time_eat && data->nb_philos % 2 == 1 && *res == 2)
+		*res = 3;
 	if ((m_time < data->time_of_begin + data->time_eat
-			&& res == 2 && data->nb_philos % 2 == 0)
+			&& *res == 2 && data->nb_philos % 2 == 0)
 		|| (m_time < data->time_of_begin + 2 * data->time_eat
-			&& res == 2 && data->nb_philos % 2 == 1))
-		res = 0;
-	return (res);
+			&& *res == 2 && data->nb_philos % 2 == 1))
+		*res = 0;
+	return (*res);
 }
 
 void	philo_die(t_philo *philo, int time)
@@ -87,7 +89,7 @@ void	philo_die(t_philo *philo, int time)
 	set_i(&data->dead_mut, &data->first_dead, philo->name);
 }
 
-void	philo_eats(t_philo *philo, t_data *data, int res)
+void	philo_eats(t_philo *philo, t_data *data, int res, long long m_time)
 {
 	long long	delta;
 
@@ -104,6 +106,14 @@ void	philo_eats(t_philo *philo, t_data *data, int res)
 			philo_die(philo, data->time_eat
 				- (3 * data->time_eat - data->time_dead));
 	}
+	else if (res == 3)
+	{
+		if (m_time < data->time_of_begin + data->time_eat)
+			ft_sleep(data->time_eat);
+		else
+			philo_die(philo, data->time_dead
+				- (data->time_eat ));
+	}
 	else
 		ft_sleep(data->time_eat);
 }
@@ -114,13 +124,17 @@ void	eating(t_philo *philo)
 	long long	m_time;
 	int			usecase;
 
+	usecase = 0;
 	data = philo->data;
 	lock_fork(philo, data);
 	m_time = ft_time();
 	print_is_eating(philo, data, m_time);
 	philo->time_last_meal = m_time;
-	usecase = condition(philo, m_time);
-	philo_eats(philo, data, usecase);
+	usecase = condition(philo, m_time, &usecase);
+		pthread_mutex_lock(&data->printable);
+			printf("condition : %d\n", usecase);
+		pthread_mutex_unlock(&data->printable);
+	philo_eats(philo, data, usecase, m_time);
 	philo->nb_of_meal += 1;
 	unlock_fork(philo, data);
 }
