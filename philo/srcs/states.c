@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   states.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsunda <bsunda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bedelo <bedelo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:38:49 by bsunda            #+#    #+#             */
-/*   Updated: 2024/11/16 15:45:45 by bsunda           ###   ########.fr       */
+/*   Updated: 2024/12/01 16:58:36 by bedelo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,18 @@ static int	condition(t_philo *philo, long long m_time, int *res)
 	data = philo->data;
 	if (data->time_dead < data->time_eat)
 		*res = 1;
+		*res = 1;
 	else if (data->time_dead == data->time_eat)
 	{
 		if (data->time_sleep == data->time_eat)
 			*res = 1;
+			*res = 1;
 	}
 	else if (data->time_dead + philo->time_last_meal < m_time)
 		*res = 1;
+		*res = 1;
 	else if (data->time_dead < 2 * data->time_eat && data->nb_philos % 2 == 0)
+		*res = 2;
 		*res = 2;
 	else if (data->time_dead < 3 * data->time_eat && data->nb_philos % 2 == 1)
 		*res = 2;
@@ -35,7 +39,11 @@ static int	condition(t_philo *philo, long long m_time, int *res)
 		*res = 3;
 	if ((m_time < data->time_of_begin + data->time_eat
 			&& *res == 2 && data->nb_philos % 2 == 0)
+			&& *res == 2 && data->nb_philos % 2 == 0)
 		|| (m_time < data->time_of_begin + 2 * data->time_eat
+			&& *res == 2 && data->nb_philos % 2 == 1))
+		*res = 0;
+	return (*res);
 			&& *res == 2 && data->nb_philos % 2 == 1))
 		*res = 0;
 	return (*res);
@@ -84,6 +92,7 @@ void	eating(t_philo *philo)
 	long long	m_time;
 	int			usecase;
 
+	usecase = 0;
 	usecase = 0;
 	data = philo->data;
 	lock_fork(philo, data);
