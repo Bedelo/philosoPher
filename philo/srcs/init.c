@@ -6,7 +6,7 @@
 /*   By: bsunda <bsunda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:39:54 by bsunda            #+#    #+#             */
-/*   Updated: 2024/11/11 09:39:55 by bsunda           ###   ########.fr       */
+/*   Updated: 2024/11/27 16:52:58 by bsunda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	use_case_1(t_data *data)
 	res = 0;
 	if (data->nb_philos == 1)
 	{
+		printf("%d\t1\t\thas taken a fork\n", 0);
 		printf("%d\t1\t\tis died\n", data->time_dead);
 		ft_sleep(data->time_dead);
 		res++;
@@ -100,7 +101,10 @@ int	init(t_data *data, int ac, char **av)
 		return (FAILURE);
 	else
 	{
-		start0(data, av);
+		if (ft_atol(av[1]) == 0)
+			write(2, "NONE PHILO\n", 11);
+		else
+			start0(data, av);
 		return (SUCCESS);
 	}
 }

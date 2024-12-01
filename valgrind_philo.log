@@ -1,0 +1,214 @@
+==14862== Memcheck, a memory error detector
+==14862== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==14862== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==14862== Command: ./philo//philo 4 410 200 200 10
+==14862== 
+208     2       has taken a fork
+217     2       has taken a fork
+217     2       is eating
+219     4       has taken a fork
+219     4       has taken a fork
+219     4       is eating
+419     2       is sleeping
+420     4       is sleeping
+420     1       has taken a fork
+421     1       has taken a fork
+421     1       is eating
+421     3       has taken a fork
+421     3       has taken a fork
+421     3       is eating
+621     2       is thinking
+623     3       is sleeping
+623     4       is thinking
+623     4       has taken a fork
+623     1       is sleeping
+623     4       has taken a fork
+623     4       is eating
+623     2       has taken a fork
+623     2       has taken a fork
+623     2       is eating
+823     4       is sleeping
+823     2       is sleeping
+824     3       is thinking
+824     3       has taken a fork
+824     3       has taken a fork
+824     3       is eating
+824     1       is thinking
+824     1       has taken a fork
+824     1       has taken a fork
+824     1       is eating
+1024    1       is sleeping
+1024    3       is sleeping
+1025    4       is thinking
+1025    4       has taken a fork
+1025    4       has taken a fork
+1025    4       is eating
+1025    2       is thinking
+1025    2       has taken a fork
+1025    2       has taken a fork
+1025    2       is eating
+1225    4       is sleeping
+1225    1       is thinking
+1225    2       is sleeping
+1225    1       has taken a fork
+1225    1       has taken a fork
+1226    1       is eating
+1227    3       is thinking
+1227    3       has taken a fork
+1227    3       has taken a fork
+1227    3       is eating
+1426    2       is thinking
+1426    4       is thinking
+1426    1       is sleeping
+1426    2       has taken a fork
+1427    4       has taken a fork
+1427    4       has taken a fork
+1427    4       is eating
+1427    2       has taken a fork
+1427    2       is eating
+1427    3       is sleeping
+1627    1       is thinking
+1627    2       is sleeping
+1627    4       is sleeping
+1627    1       has taken a fork
+1627    1       has taken a fork
+1627    1       is eating
+1628    3       is thinking
+1628    3       has taken a fork
+1628    3       has taken a fork
+1628    3       is eating
+1827    1       is sleeping
+1828    3       is sleeping
+1828    4       is thinking
+1828    4       has taken a fork
+1828    4       has taken a fork
+1828    4       is eating
+1829    2       is thinking
+1829    2       has taken a fork
+1829    2       has taken a fork
+1829    2       is eating
+2028    4       is sleeping
+2028    1       is thinking
+2029    2       is sleeping
+2029    1       has taken a fork
+2029    1       has taken a fork
+2029    1       is eating
+2030    3       is thinking
+2030    3       has taken a fork
+2030    3       has taken a fork
+2030    3       is eating
+2229    1       is sleeping
+2229    4       is thinking
+2230    3       is sleeping
+2230    4       has taken a fork
+2230    4       has taken a fork
+2230    4       is eating
+2231    2       is thinking
+2231    2       has taken a fork
+2231    2       has taken a fork
+2231    2       is eating
+2430    4       is sleeping
+2430    1       is thinking
+2431    2       is sleeping
+2431    3       is thinking
+2431    3       has taken a fork
+2431    3       has taken a fork
+2431    3       is eating
+2431    1       has taken a fork
+2431    1       has taken a fork
+2431    1       is eating
+2631    1       is sleeping
+2631    3       is sleeping
+2631    4       is thinking
+2631    4       has taken a fork
+2631    4       has taken a fork
+2632    4       is eating
+2632    2       is thinking
+2632    2       has taken a fork
+2632    2       has taken a fork
+2632    2       is eating
+2832    3       is thinking
+2832    4       is sleeping
+2832    2       is sleeping
+2832    1       is thinking
+2832    1       has taken a fork
+2832    1       has taken a fork
+2832    1       is eating
+2832    3       has taken a fork
+2832    3       has taken a fork
+2832    3       is eating
+3032    3       is sleeping
+3032    1       is sleeping
+3033    4       is thinking
+3033    4       has taken a fork
+3033    4       has taken a fork
+3038    4       is eating
+3036    2       is thinking
+3039    2       has taken a fork
+3039    2       has taken a fork
+3039    2       is eating
+3233    3       is thinking
+3233    1       is thinking
+3238    4       is sleeping
+3238    3       has taken a fork
+3239    2       is sleeping
+3239    3       has taken a fork
+3239    3       is eating
+3239    1       has taken a fork
+3239    1       has taken a fork
+3239    1       is eating
+3439    4       is thinking
+3439    4       has taken a fork
+3439    1       is sleeping
+3439    3       is sleeping
+3440    4       has taken a fork
+3440    4       is eating
+3441    2       is thinking
+3441    2       has taken a fork
+3441    2       has taken a fork
+3441    2       is eating
+3640    3       is thinking
+3640    1       is thinking
+3640    4       is sleeping
+3640    3       has taken a fork
+3641    2       is sleeping
+3641    3       has taken a fork
+3641    3       is eating
+3641    1       has taken a fork
+3641    1       has taken a fork
+3641    1       is eating
+3841    4       is thinking
+3841    1       is sleeping
+3841    3       is sleeping
+3841    4       has taken a fork
+3842    4       has taken a fork
+3842    4       is eating
+3842    2       is thinking
+3842    2       has taken a fork
+3842    2       has taken a fork
+3842    2       is eating
+4042    3       is thinking
+4042    2       is sleeping
+4042    1       is thinking
+4042    1       has taken a fork
+4042    4       is sleeping
+4043    1       has taken a fork
+4043    1       is eating
+4043    3       has taken a fork
+4043    3       has taken a fork
+4043    3       is eating
+4243    1       is sleeping
+4243    3       is sleeping
+4243    2       is thinking
+4244    4       is thinking
+4444    3       is thinking
+4444    1       is thinking
+==14862== 
+==14862== HEAP SUMMARY:
+==14862==     in use at exit: 0 bytes in 0 blocks
+==14862==   total heap usage: 9 allocs, 9 frees, 6,112 bytes allocated
+==14862== 
+==14862== All heap blocks were freed -- no leaks are possible
+==14862== 
+==14862== For lists of detected and suppressed errors, rerun with: -s
+==14862== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
